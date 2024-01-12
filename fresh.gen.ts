@@ -16,6 +16,7 @@ import * as $async_page from "./routes/async-page.tsx";
 import * as $definehelper from "./routes/definehelper.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
+import * as $skipappwrapp from "./routes/skipappwrapp.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
@@ -35,6 +36,7 @@ const manifest = {
     "./routes/definehelper.tsx": $definehelper,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
+    "./routes/skipappwrapp.tsx": $skipappwrapp,
   },
   islands: {
     "./islands/Counter.tsx": $Counter,

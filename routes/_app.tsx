@@ -37,6 +37,9 @@ export default function App({ Component }: PageProps) {
               <li>
                 <a href="/definehelper">defineRoute函数</a>
               </li>
+              <li>
+                <a href="/skipappwrapp">一个跳过appwarpper的路由</a>
+              </li>
             </ul>
           </nav>
         </header>
