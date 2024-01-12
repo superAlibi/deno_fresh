@@ -2,8 +2,13 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $_group1_layout from "./routes/(group1)/_layout.tsx";
+import * as $_group1_g1 from "./routes/(group1)/g1.tsx";
+import * as $_group2_layout from "./routes/(group2)/_layout.tsx";
+import * as $_group2_g2 from "./routes/(group2)/g2.tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $about_layout from "./routes/about/_layout.tsx";
 import * as $about_contact from "./routes/about/contact.tsx";
 import * as $about_index from "./routes/about/index.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
@@ -14,8 +19,13 @@ import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
+    "./routes/(group1)/_layout.tsx": $_group1_layout,
+    "./routes/(group1)/g1.tsx": $_group1_g1,
+    "./routes/(group2)/_layout.tsx": $_group2_layout,
+    "./routes/(group2)/g2.tsx": $_group2_g2,
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
+    "./routes/about/_layout.tsx": $about_layout,
     "./routes/about/contact.tsx": $about_contact,
     "./routes/about/index.tsx": $about_index,
     "./routes/api/joke.ts": $api_joke,
