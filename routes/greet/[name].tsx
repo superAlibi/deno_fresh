@@ -1,5 +1,6 @@
-import { PageProps } from "$fresh/server.ts";
+import { PageProps, RouteContext } from "$fresh/server.ts";
 
-export default function Greet(props: PageProps) {
+export default function Greet(props: PageProps,_ctx:RouteContext) {
+  
   return <div>你好, {decodeURIComponent(props.params.name)}</div>;
 }

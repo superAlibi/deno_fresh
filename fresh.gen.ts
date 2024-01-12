@@ -12,6 +12,8 @@ import * as $about_layout from "./routes/about/_layout.tsx";
 import * as $about_contact from "./routes/about/contact.tsx";
 import * as $about_index from "./routes/about/index.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
+import * as $async_page from "./routes/async-page.tsx";
+import * as $definehelper from "./routes/definehelper.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
@@ -29,6 +31,8 @@ const manifest = {
     "./routes/about/contact.tsx": $about_contact,
     "./routes/about/index.tsx": $about_index,
     "./routes/api/joke.ts": $api_joke,
+    "./routes/async-page.tsx": $async_page,
+    "./routes/definehelper.tsx": $definehelper,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
   },

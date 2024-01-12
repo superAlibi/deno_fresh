@@ -12,7 +12,7 @@ export default function App({ Component }: PageProps) {
         <header class="px-4 py-8 mx-auto bg-[#86efac]">
           <h1 class="text-4xl font-bold">这是一个deno_fresh的hell world</h1>
           <nav>
-            <ul class="flex justify-center gap-5">
+            <ul class="flex justify-center gap-5 flex-wrap">
               <li>
                 <a href="/">首页</a>
               </li>
@@ -30,6 +30,12 @@ export default function App({ Component }: PageProps) {
               </li>
               <li>
                 <a href="/greet/陌生人">问好</a>
+              </li>
+              <li>
+                <a href="/async-page">异步组件</a>
+              </li>
+              <li>
+                <a href="/definehelper">defineRoute函数</a>
               </li>
             </ul>
           </nav>
