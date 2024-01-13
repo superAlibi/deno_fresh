@@ -24,7 +24,7 @@ export const handler: Handlers = {
     nh.set("location", "/about");
     return new Response(null, {
       headers: nh,
-      status: 303,
+      status: 302,
     });
   },
 };

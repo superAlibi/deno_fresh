@@ -1,9 +1,9 @@
 import { defineLayout } from "$fresh/server.ts";
+import { Partial } from "$fresh/runtime.ts";
 
 export default defineLayout((req, contx) => {
-  
   return (
-    <div>
+    <div f-client-nav>
       <header class="px-4 py-8 mx-auto bg-[#86efac]">
         <h1 class="text-4xl font-bold">这是一个deno_fresh的hell world</h1>
         <nav>
@@ -38,7 +38,9 @@ export default defineLayout((req, contx) => {
           </ul>
         </nav>
       </header>
-      <contx.Component></contx.Component>
+      <Partial name="body">
+        <contx.Component></contx.Component>
+      </Partial>
     </div>
   );
 });
