@@ -7,7 +7,7 @@ export default function App({ Component }: PageProps) {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>fresh's hello world</title>
-        <link rel="stylesheet" href={asset("/styles.css")} />
+        <link rel="stylesheet" href="/styles.css" />
       </head>
       <body>
         <header class="px-4 py-8 mx-auto bg-[#86efac]">
