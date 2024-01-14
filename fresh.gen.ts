@@ -8,7 +8,6 @@ import * as $_group2_layout from "./routes/(group2)/_layout.tsx";
 import * as $_group2_g2 from "./routes/(group2)/g2.tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
-import * as $_layout from "./routes/_layout.tsx";
 import * as $about_layout from "./routes/about/_layout.tsx";
 import * as $about_middleware from "./routes/about/_middleware.ts";
 import * as $about_contact from "./routes/about/contact.tsx";
@@ -32,7 +31,6 @@ const manifest = {
     "./routes/(group2)/g2.tsx": $_group2_g2,
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
-    "./routes/_layout.tsx": $_layout,
     "./routes/about/_layout.tsx": $about_layout,
     "./routes/about/_middleware.ts": $about_middleware,
     "./routes/about/contact.tsx": $about_contact,
