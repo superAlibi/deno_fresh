@@ -17,5 +17,8 @@ const JOKES = [
 export const handler = (_req: Request, _ctx: FreshContext): Response => {
   const randomIndex = Math.floor(Math.random() * JOKES.length);
   const body = JOKES[randomIndex];
+  // const brith = Temporal.PlainMonthDay.from("12-15");
+  // const birthdayIn2030 = brith.toPlainDate({ year: 2030 });
+  // console.log(birthdayIn2030.toString());
   return new Response(body);
 };
