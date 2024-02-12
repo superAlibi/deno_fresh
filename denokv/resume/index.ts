@@ -1,8 +1,14 @@
 const BaseName = "resume";
-const kvServer = await Deno.openKv();
+
+const kvServer = await Deno.openKv(
+  Deno.env.get("PRODUCTION")
+    ? `https://api.deno.com/databases/${Deno.env.get("DBID")}/connect`
+    : void 0,
+);
 globalThis.addEventListener("beforeunload", () => {
   kvServer.close();
 });
+Temporal.Now.timeZoneId;
 export interface CredentialMeta {
   // 创建时间
   createAt: string;
