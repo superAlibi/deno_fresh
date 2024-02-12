@@ -1,10 +1,6 @@
 const BaseName = "resume";
-
-const kvServer = await Deno.openKv(
-  Deno.env.get("PRODUCTION")
-    ? `https://api.deno.com/databases/${Deno.env.get("DBID")}/connect`
-    : void 0,
-);
+// await Deno.openKv("https://api.deno.com/databases/f3473589-0050-4fa6-80b4-234c407d4845/connect");
+const kvServer = await Deno.openKv();
 globalThis.addEventListener("beforeunload", () => {
   kvServer.close();
 });
