@@ -1,30 +1,60 @@
 import { Handlers } from "$fresh/server.ts";
-import { CredentialMeta, UpdateCredential } from "../../denokv/index.ts";
+import {
+  CredentialMeta,
+  DeleteCredit,
+  GetCredit,
+  GetCreditList,
+  UpdateCredential,
+} from "../../denokv/index.ts";
 
 export const handler: Handlers = {
-  async GET() {
-    const now = Temporal.Now.instant(),
-      zoned = now.toZonedDateTimeISO("Asia/Shanghai").round('millisecond')
-        .toString();
-    const credit: CredentialMeta = {
-      createAt: zoned,
-      corporateName: now.epochMilliseconds.toString(),
-      duration: 7,
-      durationUnit: "days",
-      drives: [],
-    };
-    const result = await UpdateCredential(credit, now.epochMilliseconds);
-
-    if (result?.ok) {
+  /**
+   * 仅仅用于生成测试数据,并无其他大勇
+   * @returns
+   */
+  async GET(req) {
+    const url = new URL(req.url);
+    const credit = url.searchParams.get("credential");
+    if (credit) {
       return new Response(
-        JSON.stringify(
-          [
-            zoned,
-            now.epochMilliseconds,
-          ],
-        ),
+        JSON.stringify(await GetCredit(Number.parseInt(credit))),
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        },
+      );
+    } else {
+      return new Response(
+        JSON.stringify(await GetCreditList()),
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        },
       );
     }
-    return new Response("时间戳写入失败", { status: 500 });
+  },
+  async POST(req, ctx) {
+    const value = await req.json();
+    const credit = Date.now();
+    const result = await UpdateCredential(value, credit);
+    if (result.ok) {
+      return new Response(JSON.stringify(credit), {
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+    }
+    return new Response("创建失败", { status: 500 });
+  },
+  async DELETE(req) {
+    const credits: number[] = await req.json();
+    await DeleteCredit(credits);
+    return new Response("已删除", {
+      headers: {
+        "content-type": "application/json",
+      },
+    });
   },
 };

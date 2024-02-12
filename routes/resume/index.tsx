@@ -1,18 +1,20 @@
 import { defineRoute, Handler, Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies, setCookie } from "$std/http/mod.ts";
+import dayjs from "npm:dayjs@latest";
 import {
   CredentialExpiration,
   NotCredentialPage,
 } from "../../components/resume/index.tsx";
-import { AddDriversByCredit, GetCreditByCredit } from "../../denokv/index.ts";
+import { AddDriversByCredit, GetCredit } from "../../denokv/index.ts";
 interface Credentials {
+  
   // 没有凭据
   hasCredit: boolean;
   // 访问设备过多
   driverOverflow: boolean;
   // 过期
   expires: boolean;
-  expiresDateTime?: Temporal.PlainDateTime;
+  expiresDateTime?: string;
   driveId?: string;
 }
 async function getReqState(req: Request): Promise<Credentials> {
@@ -26,27 +28,28 @@ async function getReqState(req: Request): Promise<Credentials> {
     });
   }
   const key = Number.parseInt(credential),
-    credit = await GetCreditByCredit(key);
+    credit = await GetCredit(key);
+
   if (!credit) {
     return ({
-      hasCredit: false,
+      hasCredit: true,
       driverOverflow: false,
-      expires: false,
+      expires: true,
     });
   }
   const driverOverflow = !credit || (credit?.drives?.length || 0) >= 4,
     cookies = getCookies(req.headers),
     driveId = cookies["d"] || crypto.randomUUID();
+  console.log(credit);
 
   const success = await AddDriversByCredit(key, { driveId });
-  const inst = Temporal.ZonedDateTime.from(credit.createAt).add({
-    [credit.durationUnit]: credit.duration,
-  });
 
-  const expires = Temporal.ZonedDateTime.compare(
-    inst,
-    Temporal.Now.zonedDateTimeISO(),
-  ) < 1;
+  const inst = dayjs(credit.createAt).add(
+    credit.duration,
+    credit.durationUnit,
+  );
+
+  const expires = inst.isBefore(new Date());
 
   if (!success?.ok) {
     console.error(`储存设备id失败: 分享id: ${key}, 设备id:${driveId}`);
@@ -57,7 +60,7 @@ async function getReqState(req: Request): Promise<Credentials> {
     driverOverflow,
     expires,
     driveId,
-    expiresDateTime: inst.toPlainDateTime(),
+    expiresDateTime: inst.toDate().toLocaleString(),
   });
 }
 export const handler: Handlers<Credentials> = {
@@ -91,11 +94,10 @@ export default (({ data }: PageProps<Credentials>) => {
   if (data.expires) {
     return <div>链接已过期</div>;
   }
-  console.log(data);
 
   return (
     <div>
-      <div>链接过期时间{data.expiresDateTime?.toString()}</div>
+      <div>链接过期时间{data.expiresDateTime}</div>
     </div>
   );
 });

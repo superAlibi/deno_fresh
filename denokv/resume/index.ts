@@ -1,18 +1,20 @@
 const BaseName = "resume";
 // await Deno.openKv("https://api.deno.com/databases/f3473589-0050-4fa6-80b4-234c407d4845/connect");
 const kvServer = await Deno.openKv();
+import { ManipulateType } from "npm:dayjs@latest";
 globalThis.addEventListener("beforeunload", () => {
   kvServer.close();
 });
-Temporal.Now.timeZoneId;
+
 export interface CredentialMeta {
+  id: number;
   // 创建时间
   createAt: string;
   // 公司名称
   corporateName: string;
   // 分享有效期
   duration: number;
-  durationUnit: keyof Temporal.DurationLike;
+  durationUnit: ManipulateType;
   //已经访问过的设备列表
   drives: DriveMeta[];
 }
@@ -30,13 +32,25 @@ export interface DriveMeta {
  * @param credit
  * @returns
  */
-export async function GetCreditByCredit(
+export async function GetCredit(
   credit: number,
-): Promise<CredentialMeta | null> {
+) {
   const result = await kvServer.get<CredentialMeta>([BaseName, credit]);
   return result.value;
 }
-
+/**
+ * 给出所有的凭据
+ * @returns
+ */
+export async function GetCreditList() {
+  const result = kvServer.list<CredentialMeta>({ prefix: [BaseName] });
+  const list: CredentialMeta[] = [];
+  for await (const item of result) {
+    item.value;
+    list.push(item.value);
+  }
+  return list;
+}
 /**
  * 添加一个分享信息
  * @param params
@@ -48,8 +62,9 @@ export function UpdateCredential(
   credit?: number,
 ) {
   if (!credit) {
-    credit = Temporal.Now.instant().epochMilliseconds;
+    credit = Temporal ? Temporal.Now.instant().epochMilliseconds : Date.now();
   }
+  params.id = credit;
   return kvServer.set([BaseName, credit], params);
 }
 /**
@@ -62,7 +77,7 @@ export async function AddDriversByCredit(
   credit: number,
   drives: DriveMeta,
 ) {
-  const value = await GetCreditByCredit(credit);
+  const value = await GetCredit(credit);
   if (!value) {
     return null;
   }
@@ -72,4 +87,13 @@ export async function AddDriversByCredit(
     value.drives.push(drives);
   }
   return UpdateCredential(value, credit);
+}
+/**
+ * 删除数据
+ * @param param
+ */
+export async function DeleteCredit(param: number[]) {
+  for (const iterator of param) {
+    await kvServer.delete([BaseName, iterator]);
+  }
 }
