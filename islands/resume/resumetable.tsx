@@ -23,8 +23,6 @@ export default ({ data, action }: ResumeTableProps) => {
     choosedSet.value = nv;
   }
   function handleCheckall(e: InputEvent) {
-    console.log(e);
-    
     const nv = new Set(choosedSet.value);
     if (e.target!.checked) {
       data.forEach((i) => {
@@ -36,13 +34,7 @@ export default ({ data, action }: ResumeTableProps) => {
     choosedSet.value = nv;
   }
 
-  const editOpen = useSignal(false);
-  function handleEdit() {
-    console.log("why");
 
-    // editOpen.value = !editOpen.value;
-    // console.log(editOpen.value,' ????');
-  }
   return (
     <form ref={formRef} method="post" action={action}>
       <div>
@@ -71,7 +63,6 @@ export default ({ data, action }: ResumeTableProps) => {
                 name="checkall"
                 onChange={handleCheckall}
               />
-              {choosedSet.value.size}
             </th>
             <th class="border border-slate-600">
               创建时间

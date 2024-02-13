@@ -63,9 +63,7 @@ export function UpdateCredential(
   params: UpdateCredentialParam,
 ) {
   if (!params.id) {
-    params.id = Temporal
-      ? Temporal.Now.instant().epochMilliseconds
-      : Date.now();
+    params.id =  Date.now();
   }
   if (!params.createAt) {
     params.createAt = new Date().toISOString();
