@@ -39,7 +39,6 @@ async function getReqState(req: Request): Promise<Credentials> {
   const driverOverflow = !credit || (credit?.drives?.length || 0) >= 4,
     cookies = getCookies(req.headers),
     driveId = cookies["d"] || crypto.randomUUID();
-  console.log(credit);
 
   const success = await AddDriversByCredit(key, { driveId });
 

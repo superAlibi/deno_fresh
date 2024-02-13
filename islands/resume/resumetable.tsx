@@ -1,13 +1,14 @@
 import { useRef } from "preact/hooks";
 import { CredentialMeta } from "../../denokv/resume/index.ts";
 import { useComputed, useSignal } from "@preact/signals";
+// import Edit from "./edit.tsx";
+import { JSX } from "preact";
 
 interface ResumeTableProps {
   action: string;
   data: CredentialMeta[];
 }
 export default ({ data, action }: ResumeTableProps) => {
-  const formRef = useRef<HTMLFormElement>(null);
   const choosedSet = useSignal(new Set<number>());
   const isCheckedAll = useComputed(() => {
     if (!data.length) return false;
@@ -22,9 +23,9 @@ export default ({ data, action }: ResumeTableProps) => {
     }
     choosedSet.value = nv;
   }
-  function handleCheckall(e: InputEvent) {
+  function handleCheckall(e: JSX.TargetedEvent<HTMLInputElement, InputEvent>) {
     const nv = new Set(choosedSet.value);
-    if (e.target!.checked) {
+    if (e.currentTarget.checked) {
       data.forEach((i) => {
         nv.add(i.id);
       });
@@ -33,10 +34,26 @@ export default ({ data, action }: ResumeTableProps) => {
     }
     choosedSet.value = nv;
   }
-
-
+  function handleCopy(params: number) {
+    const newUrl = new URL(location.href);
+    newUrl.pathname='/resume'
+    newUrl.searchParams.set("credential", params.toString());
+    const type = "text/plain";
+    const blob = new Blob([newUrl.toString()], { type });
+    const data = [new ClipboardItem({ [type]: blob })];
+    navigator.clipboard.write(data).then((d) => {
+      console.log("复制成功");
+    });
+  }
+  // const isOpen = useSignal(false);
   return (
-    <form ref={formRef} method="post" action={action}>
+    <form  method="post" action={action}>
+      {/* <Edit
+        onClose={() => {
+          isOpen.value = false;
+        }}
+        open={isOpen.value}
+      /> */}
       <div>
         <button
           disabled={!choosedSet.value.size}
@@ -44,6 +61,15 @@ export default ({ data, action }: ResumeTableProps) => {
         >
           删除
         </button>
+        {/* <button
+          type="button"
+          onClick={() => {
+            console.log("not msg");
+            isOpen.value = !isOpen.value;
+          }}
+        >
+          确定无法{isOpen.value}
+        </button> */}
         <a
           type="button"
           href="/admin/resume/edit"
@@ -79,6 +105,9 @@ export default ({ data, action }: ResumeTableProps) => {
             <th class="border border-slate-600">
               已查看设备
             </th>
+            <th class="border border-slate-600">
+              分享
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -99,6 +128,14 @@ export default ({ data, action }: ResumeTableProps) => {
                 <td class="border border-slate-700">{item.duration}</td>
                 <td class="border border-slate-700">{item.durationUnit}</td>
                 <td class="border border-slate-700">{item.drives.length}</td>
+                <td class="border border-slate-700">
+                  <a
+                    class="hover:cursor-pointer text-blue-600"
+                    onClick={() => handleCopy(item.id)}
+                  >
+                    复制
+                  </a>
+                </td>
               </tr>
             );
           })}

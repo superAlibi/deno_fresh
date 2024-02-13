@@ -51,7 +51,7 @@ export const handler: Handlers = {
     const odt = getCookies(req.headers);
     // 删除不用的token
     if (odt && odt["t"]) {
-      DeleteToken(odt["t"]);
+      DeleteToken([odt["t"]]);
     }
     setCookie(newHeader, {
       name: "t",

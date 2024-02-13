@@ -1,5 +1,5 @@
 import { Handler } from "$fresh/server.ts";
-import { deleteCookie, getCookies } from "$std/http/mod.ts";
+import { deleteCookie, getCookies, setCookie } from "$std/http/mod.ts";
 import { DeleteToken, GetTokenInfo, SetTokenInfo } from "../../denokv/index.ts";
 import dayjs from "npm:dayjs@latest";
 const witeList = ["/admin/login"];
@@ -34,7 +34,7 @@ export const handler: Handler = async (req, ctx) => {
   const expiration = dayjs(result.renewal).add(result.maxAge, result.ageUnit)
     .isBefore(dayjs());
   if (expiration) {
-    await DeleteToken(result.token);
+    await DeleteToken([result.token]);
     deleteCookie(headers, "t");
     headers.set("location", "/admin/login");
     return new Response(JSON.stringify("令牌过期"), {
@@ -42,8 +42,9 @@ export const handler: Handler = async (req, ctx) => {
       headers,
     });
   }
+  const newDate = dayjs();
   // 只要有请求,都算自动续期
-  result.renewal = dayjs().toISOString();
+  result.renewal = newDate.toISOString();
   SetTokenInfo(result).then(({ ok }) => {
     if (!ok) {
       console.error(`admin/token:${token} 续期失败`);
@@ -51,5 +52,13 @@ export const handler: Handler = async (req, ctx) => {
   });
   ctx.state.userInfo = result.accountInfo;
   const resp = await ctx.next();
+  // 重写cookie,保持在线
+  setCookie(resp.headers, {
+    name: "t",
+    value: token,
+    expires: newDate.add(result.maxAge, result.ageUnit).toDate(),
+    path: "/admin",
+    httpOnly: true,
+  });
   return resp;
 };

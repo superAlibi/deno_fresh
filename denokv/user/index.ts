@@ -53,8 +53,10 @@ export function UpdateUserInfo(params: UserInfo) {
  * @param account
  * @returns
  */
-export function DeleteUserInfo(account: string) {
-  return kvServer.delete([BaseName, account]);
+export async function DeleteUserInfo(account: string[]) {
+  for (const iterator of account) {
+    await kvServer.delete([BaseName, iterator]);
+  }
 }
 
 /**
@@ -67,12 +69,28 @@ export async function GetTokenInfo(token: string) {
   return result.value;
 }
 /**
+ * 给出在线用户列表
+ * @param token
+ * @returns
+ */
+export async function GetTokens() {
+  const result = kvServer.list<TokenInfo>({ prefix: [tokenKey] });
+  const list: TokenInfo[] = [];
+  for await (const iterator of result) {
+    list.push(iterator.value);
+  }
+  return list;
+}
+
+/**
  * 删除token信息
  * @param tokenId
  * @returns
  */
-export function DeleteToken(tokenId: string) {
-  return kvServer.delete([tokenKey, tokenId]);
+export async function DeleteToken(tokenId: string[]) {
+  for (const iterator of tokenId) {
+    await kvServer.delete([tokenKey, iterator]);
+  }
 }
 /**
  * 写入token信息

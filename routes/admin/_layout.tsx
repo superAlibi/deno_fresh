@@ -18,6 +18,11 @@ export default defineLayout((_, { Component }) => {
               简历分享
             </a>
           </li>
+          <li class=" hover:bg-slate-500">
+            <a class="h-full block px-4 py-2" href="/admin/token">
+              在线用户
+            </a>
+          </li>
         </ul>
       </aside>
       <main class="overflow-x-hidden grow ">
