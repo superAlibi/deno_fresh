@@ -1,19 +1,30 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { useComputed } from "@preact/signals";
-import { CredentialMeta, GetCreditList } from "../../denokv/index.ts";
+import {
+  CredentialMeta,
+  GetCreditList,
+  GetTokens,
+  GetUserList,
+  UserInfo,
+  TokenInfo
+} from "../../denokv/index.ts";
 
-export const handler: Handlers<CredentialMeta[]> = {
+export const handler: Handlers = {
   async GET(req, ctx) {
-    const list = await GetCreditList();
-    return ctx.render(list);
+    const credits = await GetCreditList();
+    const liveUsers = await GetTokens();
+    return ctx.render({ credits, liveUsers });
   },
 };
-export default function ({ data }: PageProps<CredentialMeta[]>) {
-  const count = useComputed(() => data.length);
+export default function (
+  { data }: PageProps<{ credits: CredentialMeta[]; liveUsers: TokenInfo[] }>,
+) {
+  const count = useComputed(() => data.credits.length);
+  const countLive = useComputed(() => data.liveUsers.length);
   return (
     <div>
       <div>简历分享总计: {count.value}次</div>
-      <div>在线用户数量: {count.value}次</div>
+      <div>在线用户数量: {countLive.value}人</div>
     </div>
   );
 }
