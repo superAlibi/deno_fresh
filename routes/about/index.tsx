@@ -4,7 +4,6 @@ import { Button } from "../../components/Button.tsx";
 import { MiddlewareState } from "./_middleware.ts";
 
 export default defineRoute<MiddlewareState>((req, ctx) => {
-
   if (ctx.state.logined) {
     return (
       <main>
@@ -12,12 +11,12 @@ export default defineRoute<MiddlewareState>((req, ctx) => {
         <a href="/about/contact">我的联系人</a>
       </main>
     );
-  }else{
-    return new Response(null,{
-      status:303,
-      headers:{
-        Location:'/login'
-      }
-    })
+  } else {
+    return new Response(null, {
+      status: 303,
+      headers: {
+        Location: "/login",
+      },
+    });
   }
 });

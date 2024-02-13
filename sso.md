@@ -1,5 +1,4 @@
 # sso实现
-```mermaid
-  
 
+```mermaid
 ```

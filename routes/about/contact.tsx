@@ -9,7 +9,9 @@ export const handler: Handlers<Data> = {
   GET(req, ctx) {
     const url = new URL(req.url);
     const query = new URLSearchParams(url.search).get("q") || "";
-    const result = NAMES.filter((i) => (i.toLocaleLowerCase()).includes(query.toLocaleLowerCase()));
+    const result = NAMES.filter((i) =>
+      (i.toLocaleLowerCase()).includes(query.toLocaleLowerCase())
+    );
     return ctx.render({ result, query });
   },
 };

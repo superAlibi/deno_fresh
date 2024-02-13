@@ -15,6 +15,7 @@ import * as $about_index from "./routes/about/index.tsx";
 import * as $admin_layout from "./routes/admin/_layout.tsx";
 import * as $admin_middleware from "./routes/admin/_middleware.ts";
 import * as $admin_index from "./routes/admin/index.tsx";
+import * as $admin_login from "./routes/admin/login.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_resume from "./routes/api/resume.ts";
 import * as $api_user_login from "./routes/api/user/login.ts";
@@ -26,6 +27,7 @@ import * as $login from "./routes/login.tsx";
 import * as $resume_index from "./routes/resume/index.tsx";
 import * as $skipappwrapp from "./routes/skipappwrapp.tsx";
 import * as $Counter from "./islands/Counter.tsx";
+import * as $LoginForm from "./islands/LoginForm.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -43,6 +45,7 @@ const manifest = {
     "./routes/admin/_layout.tsx": $admin_layout,
     "./routes/admin/_middleware.ts": $admin_middleware,
     "./routes/admin/index.tsx": $admin_index,
+    "./routes/admin/login.tsx": $admin_login,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/resume.ts": $api_resume,
     "./routes/api/user/login.ts": $api_user_login,
@@ -56,6 +59,7 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
+    "./islands/LoginForm.tsx": $LoginForm,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

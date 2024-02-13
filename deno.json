@@ -8,7 +8,7 @@
     "build": "deno run --unstable-temporal -A dev.ts build",
     "preview": "deno run --unstable-temporal -A main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
-    "clear_resumekv":"deno run ./denokv/resume/devtool.ts"
+    "clear_resumekv": "deno run ./denokv/resume/devtool.ts"
   },
   "lint": {
     "rules": {
@@ -31,7 +31,7 @@
     "tailwindcss/": "npm:/tailwindcss@3.3.5/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.3.5/plugin.js",
     "$std/": "https://deno.land/std@0.212.0/",
-    "dayjs/":"npm:dayjs@latest/"
+    "dayjs/": "npm:dayjs@latest/"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

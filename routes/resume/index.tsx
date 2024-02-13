@@ -7,7 +7,6 @@ import {
 } from "../../components/resume/index.tsx";
 import { AddDriversByCredit, GetCredit } from "../../denokv/index.ts";
 interface Credentials {
-  
   // 没有凭据
   hasCredit: boolean;
   // 访问设备过多

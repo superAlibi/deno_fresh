@@ -24,11 +24,21 @@ export default defineRoute(() => {
           <legend class="mr-auto ml-auto">登录</legend>
           <label class="min-w-full flex">
             <div class="w-20">用户名</div>
-            <input autocomplete="name" class="border-b-2 flex-1" name="username"></input>
+            <input
+              autocomplete="name"
+              class="border-b-2 flex-1"
+              name="username"
+            >
+            </input>
           </label>
           <label class="min-w-full flex">
             <div class="w-20">密码</div>
-            <input autocomplete="current-password" class="border-b-2 flex-1" type="password" name="password">
+            <input
+              autocomplete="current-password"
+              class="border-b-2 flex-1"
+              type="password"
+              name="password"
+            >
             </input>
           </label>
         </fieldset>

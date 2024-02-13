@@ -11,6 +11,6 @@ export const NotCredentialPage = () => {
   );
 };
 
-export const CredentialExpiration=()=>{
-  return <main>链接已过期,或访问链接设备超过4台</main>
-}
+export const CredentialExpiration = () => {
+  return <main>链接已过期,或访问链接设备超过4台</main>;
+};
