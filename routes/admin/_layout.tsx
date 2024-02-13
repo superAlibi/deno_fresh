@@ -3,10 +3,20 @@ import { defineLayout } from "$fresh/server.ts";
 export default defineLayout((_, { Component }) => {
   return (
     <div class="flex">
-      <aside class="overflow-x-hidden basis-1/6">
+      <aside class=" h-screen overflow-x-hidden basis-60 bg-slate-600 text-white">
         <ul>
-          <li class="px-4 py-2">
-            <a href="/admin">首页</a>
+          <li class=" hover:bg-slate-500">
+            <a class="h-full block px-4 py-2" href="/admin">首页</a>
+          </li>
+          <li class=" hover:bg-slate-500">
+            <a class=" h-full block px-4 py-2" href="/admin/user">
+              账户管理
+            </a>
+          </li>
+          <li class=" hover:bg-slate-500">
+            <a class="h-full block px-4 py-2" href="/admin/resume">
+              简历分享
+            </a>
           </li>
         </ul>
       </aside>

@@ -51,6 +51,8 @@ export async function GetCreditList() {
   }
   return list;
 }
+type PKS = "id" | "createAt";
+export type UpdateCredentialParam= Omit<CredentialMeta, PKS> & Partial<Pick<CredentialMeta, PKS>>
 /**
  * 添加一个分享信息
  * @param params
@@ -58,14 +60,17 @@ export async function GetCreditList() {
  * @returns
  */
 export function UpdateCredential(
-  params: CredentialMeta,
-  credit?: number,
+  params: UpdateCredentialParam,
 ) {
-  if (!credit) {
-    credit = Temporal ? Temporal.Now.instant().epochMilliseconds : Date.now();
+  if (!params.id) {
+    params.id = Temporal
+      ? Temporal.Now.instant().epochMilliseconds
+      : Date.now();
   }
-  params.id = credit;
-  return kvServer.set([BaseName, credit], params);
+  if (!params.createAt) {
+    params.createAt = new Date().toISOString();
+  }
+  return kvServer.set([BaseName, params.id], params);
 }
 /**
  * 根据分享id添加设备
@@ -86,7 +91,7 @@ export async function AddDriversByCredit(
   if (!set.has(drives.driveId)) {
     value.drives.push(drives);
   }
-  return UpdateCredential(value, credit);
+  return UpdateCredential(value);
 }
 /**
  * 删除数据

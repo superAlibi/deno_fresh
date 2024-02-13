@@ -1,6 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
 import {
-  CredentialMeta,
   DeleteCredit,
   GetCredit,
   GetCreditList,

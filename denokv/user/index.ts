@@ -6,6 +6,7 @@ Deno.addSignalListener("SIGABRT", () => {
   kvServer.close();
   console.log("链接已停止");
 });
+
 export interface TokenInfo {
   ageUnit: ManipulateType;
   maxAge: number;
