@@ -31,6 +31,7 @@ import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
 import * as $resume_index from "./routes/resume/index.tsx";
 import * as $skipappwrapp from "./routes/skipappwrapp.tsx";
+import * as $tailwindcss_index from "./routes/tailwindcss/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $LoginForm from "./islands/LoginForm.tsx";
 import * as $resume_edit from "./islands/resume/edit.tsx";
@@ -69,6 +70,7 @@ const manifest = {
     "./routes/login.tsx": $login,
     "./routes/resume/index.tsx": $resume_index,
     "./routes/skipappwrapp.tsx": $skipappwrapp,
+    "./routes/tailwindcss/index.tsx": $tailwindcss_index,
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
