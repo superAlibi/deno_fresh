@@ -28,18 +28,17 @@ export const handler: Handlers = {
         JSON.stringify(await GetCreditList()),
         {
           headers: {
-            "content-type": "application/json",
+            "Content-Type": "application/json",
           },
         },
       );
     }
   },
-  async POST(req, ctx) {
+  async POST(req) {
     const value = await req.json();
-    const credit = Date.now();
-    const result = await UpdateCredential(value, credit);
+    const result = await UpdateCredential(value);
     if (result.ok) {
-      return new Response(JSON.stringify(credit), {
+      return new Response(JSON.stringify(value.id), {
         headers: {
           "content-type": "application/json",
         },

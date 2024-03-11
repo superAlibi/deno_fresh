@@ -22,6 +22,7 @@ import * as $admin_token from "./routes/admin/token.tsx";
 import * as $admin_user from "./routes/admin/user.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_resume from "./routes/api/resume.ts";
+import * as $api_test from "./routes/api/test.ts";
 import * as $api_user_login from "./routes/api/user/login.ts";
 import * as $async_page from "./routes/async-page.tsx";
 import * as $definehelper from "./routes/definehelper.tsx";
@@ -59,6 +60,7 @@ const manifest = {
     "./routes/admin/user.tsx": $admin_user,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/resume.ts": $api_resume,
+    "./routes/api/test.ts": $api_test,
     "./routes/api/user/login.ts": $api_user_login,
     "./routes/async-page.tsx": $async_page,
     "./routes/definehelper.tsx": $definehelper,

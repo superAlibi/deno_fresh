@@ -1,28 +1,19 @@
 {
   "lock": false,
   "tasks": {
+    "dev-start": "deno run --unstable-temporal -A --watch=static/,routes/ dev.ts",
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
     "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
     "manifest": "deno task cli manifest $(pwd)",
-    "start": "deno run --unstable-temporal -A --watch=static/,routes/ dev.ts",
     "build": "deno run --unstable-temporal -A dev.ts build",
     "preview": "deno run --unstable-temporal -A main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
     "clear_resumekv": "deno run ./denokv/resume/devtool.ts"
   },
-  "lint": {
-    "rules": {
-      "tags": [
-        "fresh",
-        "recommended"
-      ]
-    }
-  },
-  "exclude": [
-    "**/_fresh/*"
-  ],
+  "lint": { "rules": { "tags": ["fresh", "recommended"] } },
+  "exclude": ["**/_fresh/*"],
   "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.6.3/",
+    "$fresh/": "https://deno.land/x/fresh@1.6.5/",
     "preact": "https://esm.sh/preact@10.19.2",
     "preact/": "https://esm.sh/preact@10.19.2/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.1",
@@ -33,13 +24,7 @@
     "$std/": "https://deno.land/std@0.212.0/",
     "dayjs/": "npm:dayjs@latest/"
   },
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
-  },
+  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "nodeModulesDir": true,
-  "unstable": [
-    "temporal",
-    "kv"
-  ]
+  "unstable": ["temporal", "kv"]
 }
