@@ -1,4 +1,4 @@
-import { B64Img } from "./img.ts";
+import { B64Img } from "../../assets/img.ts";
 export default () => {
   return (
     <div>
