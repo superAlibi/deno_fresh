@@ -1,18 +1,22 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { Button } from "../../../components/Button.tsx";
+import { Input } from "../../../components/input.tsx";
+import { SelectOption } from "../../../components/select.tsx";
+import { Select } from "../../../components/select.tsx";
 import {
   UpdateCredential,
   UpdateCredentialParam,
 } from "../../../denokv/index.ts";
 import { ManipulateType } from "npm:dayjs@latest";
 const units = [
-  "hours",
-  "milliseconds",
-  "seconds",
-  "minutes",
-  "days",
-  "months",
-  "years",
-  "dates",
+  ["hours", "小时"],
+  ["milliseconds", "毫秒"],
+  ["seconds", "秒"],
+  ["minutes", "分"],
+  ["days", "天"],
+  ["months", "月"],
+  ["years", "年"],
+  // ["dates", "天"],
 ];
 export const handler: Handlers = {
   async POST(req, ctx) {
@@ -37,46 +41,36 @@ export const handler: Handlers = {
     });
   },
 };
-export default ({ data, url }: PageProps<UpdateCredentialParam>) => {
+export default ({ data, url }: PageProps<Partial<UpdateCredentialParam>>) => {
+  const options: SelectOption[] = units.map(([value, label], index) => ({
+    label,
+    value,
+  }));
   return (
-    <form action={url.pathname}>
-      <label class="focus-within:bg-red-400">
-        <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-          公司名称
-        </span>
-        <input
-          class="required:before:text-red before:content-['*']"
-          required
-          type="text"
-          value={data?.corporateName}
-          name="corporateName"
-        />
-      </label>
-
-      <label>
-        <span class="after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-          有效时长
-        </span>
-        <input
-          min={1}
-          type="number"
-          name="duration"
-          value={data?.duration || 1}
-        />
-      </label>
-
-      <label>
-        <span class=" after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-          时长单位
-        </span>
-        <select name="durationUnit">
-          {units.map((i) => (
-            <option checked={data?.durationUnit === i} value={i}>{i}</option>
-          ))}
-        </select>
-      </label>
-      <button type="submit" formmethod="post">新增</button>
-      <a href="/admin/resume">取消</a>
+    <form
+      action={url.pathname}
+      class=" p-6 gap-4 grid md:grid-cols-1 xl:grid-cols-3"
+    >
+      <Input
+        defaultValue={data?.corporateName}
+        name="corporateName"
+        type="text"
+        label="公司名称"
+        required
+        placeholder="公司名称"
+      />
+      <Input
+        label="有效时长"
+        min={1}
+        errormsg="请输入正确的数字"
+        type="number"
+        name="duration"
+        value={data?.duration || 1}
+      />
+      <Select required value={data?.durationUnit} label="时长单位" options={options} />
+      <Button className=" peer-invalid:disabled w-72" formmethod="post">
+        提交
+      </Button>
     </form>
   );
 };
