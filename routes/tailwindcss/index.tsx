@@ -13,7 +13,7 @@ export default () => {
         <img class=" h-full object-contain" src={B64Img} />
       </div>
       <div class="p-2">
-        <p>标记</p>
+        <p class="relative ">标记</p>
         <div class="group has-[:hover]: z-10 bg-green-800 rounded-full border-2 border-solid font-bold leading-8 cursor-pointer relative border-white text-white w-9 h-9 text-center ">
           <span class="peer">1</span>
           <div class="hidden text-sm  group-hover:block text-left cursor-pointer w-44 absolute top-0 left-10 z-10 p-3 bg-white rounded shadow text-black">
