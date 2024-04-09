@@ -32,13 +32,13 @@ import * as $login from "./routes/login.tsx";
 import * as $resume_index from "./routes/resume/index.tsx";
 import * as $skipappwrapp from "./routes/skipappwrapp.tsx";
 import * as $tailwindcss_index from "./routes/tailwindcss/index.tsx";
-import * as $webglonworker_page from "./routes/webglonworker/page.tsx";
+import * as $webrtc from "./routes/webrtc.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $LoginForm from "./islands/LoginForm.tsx";
 import * as $resume_edit from "./islands/resume/edit.tsx";
 import * as $resume_resumetable from "./islands/resume/resumetable.tsx";
 import * as $user_tokentable from "./islands/user/tokentable.tsx";
-import * as $webglworker from "./islands/webglworker.tsx";
+import * as $webrtc_1 from "./islands/webrtc.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -73,7 +73,7 @@ const manifest = {
     "./routes/resume/index.tsx": $resume_index,
     "./routes/skipappwrapp.tsx": $skipappwrapp,
     "./routes/tailwindcss/index.tsx": $tailwindcss_index,
-    "./routes/webglonworker/page.tsx": $webglonworker_page,
+    "./routes/webrtc.tsx": $webrtc,
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
@@ -81,7 +81,7 @@ const manifest = {
     "./islands/resume/edit.tsx": $resume_edit,
     "./islands/resume/resumetable.tsx": $resume_resumetable,
     "./islands/user/tokentable.tsx": $user_tokentable,
-    "./islands/webglworker.tsx": $webglworker,
+    "./islands/webrtc.tsx": $webrtc_1,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

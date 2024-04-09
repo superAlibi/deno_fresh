@@ -8,7 +8,7 @@ export default defineApp((_, { Component }: PageProps) => {
         <title>家铭的个人网站</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body class="bg-[#86efac]">
+      <body class="bg-[#86efac] h-screen">
         <Component></Component>
       </body>
     </html>
