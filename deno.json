@@ -24,7 +24,8 @@
     "$std/": "https://deno.land/std@0.212.0/",
     "dayjs/": "npm:dayjs@latest/",
     "three": "npm:three@0.163.0",
-    "@tailwindcss/forms": "npm:@tailwindcss/forms@0.5.7"
+    "@tailwindcss/forms": "npm:@tailwindcss/forms@0.5.7",
+    "mysql2/promise": "npm:mysql2@3.9.8/promise"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "nodeModulesDir": true,
