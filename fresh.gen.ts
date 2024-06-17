@@ -22,10 +22,12 @@ import * as $admin_token from "./routes/admin/token.tsx";
 import * as $admin_user from "./routes/admin/user.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_resume from "./routes/api/resume.ts";
+import * as $api_sse from "./routes/api/sse.ts";
 import * as $api_test from "./routes/api/test.ts";
 import * as $api_user_login from "./routes/api/user/login.ts";
 import * as $async_page from "./routes/async-page.tsx";
 import * as $definehelper from "./routes/definehelper.tsx";
+import * as $event_source from "./routes/event-source.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
@@ -37,6 +39,7 @@ import * as $Counter from "./islands/Counter.tsx";
 import * as $LoginForm from "./islands/LoginForm.tsx";
 import * as $resume_edit from "./islands/resume/edit.tsx";
 import * as $resume_resumetable from "./islands/resume/resumetable.tsx";
+import * as $sse from "./islands/sse.tsx";
 import * as $user_tokentable from "./islands/user/tokentable.tsx";
 import * as $webrtc_1 from "./islands/webrtc.tsx";
 import { type Manifest } from "$fresh/server.ts";
@@ -63,10 +66,12 @@ const manifest = {
     "./routes/admin/user.tsx": $admin_user,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/resume.ts": $api_resume,
+    "./routes/api/sse.ts": $api_sse,
     "./routes/api/test.ts": $api_test,
     "./routes/api/user/login.ts": $api_user_login,
     "./routes/async-page.tsx": $async_page,
     "./routes/definehelper.tsx": $definehelper,
+    "./routes/event-source.tsx": $event_source,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
     "./routes/login.tsx": $login,
@@ -80,6 +85,7 @@ const manifest = {
     "./islands/LoginForm.tsx": $LoginForm,
     "./islands/resume/edit.tsx": $resume_edit,
     "./islands/resume/resumetable.tsx": $resume_resumetable,
+    "./islands/sse.tsx": $sse,
     "./islands/user/tokentable.tsx": $user_tokentable,
     "./islands/webrtc.tsx": $webrtc_1,
   },

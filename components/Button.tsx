@@ -1,5 +1,4 @@
 import { JSX } from "preact";
-import { IS_BROWSER } from "$fresh/runtime.ts";
 import { useMemo } from "preact/hooks";
 export interface ButtonProp extends JSX.HTMLAttributes<HTMLButtonElement> {
   children: any;
