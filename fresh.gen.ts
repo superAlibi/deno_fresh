@@ -25,6 +25,7 @@ import * as $api_resume from "./routes/api/resume.ts";
 import * as $api_sse from "./routes/api/sse.ts";
 import * as $api_test from "./routes/api/test.ts";
 import * as $api_user_login from "./routes/api/user/login.ts";
+import * as $api_usercenter_login_account from "./routes/api/usercenter/login.account.ts";
 import * as $async_page from "./routes/async-page.tsx";
 import * as $definehelper from "./routes/definehelper.tsx";
 import * as $event_source from "./routes/event-source.tsx";
@@ -34,6 +35,7 @@ import * as $login from "./routes/login.tsx";
 import * as $resume_index from "./routes/resume/index.tsx";
 import * as $skipappwrapp from "./routes/skipappwrapp.tsx";
 import * as $tailwindcss_index from "./routes/tailwindcss/index.tsx";
+import * as $usercenter_login_account from "./routes/usercenter/login.account.ts";
 import * as $webrtc from "./routes/webrtc.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $LoginForm from "./islands/LoginForm.tsx";
@@ -69,6 +71,7 @@ const manifest = {
     "./routes/api/sse.ts": $api_sse,
     "./routes/api/test.ts": $api_test,
     "./routes/api/user/login.ts": $api_user_login,
+    "./routes/api/usercenter/login.account.ts": $api_usercenter_login_account,
     "./routes/async-page.tsx": $async_page,
     "./routes/definehelper.tsx": $definehelper,
     "./routes/event-source.tsx": $event_source,
@@ -78,6 +81,7 @@ const manifest = {
     "./routes/resume/index.tsx": $resume_index,
     "./routes/skipappwrapp.tsx": $skipappwrapp,
     "./routes/tailwindcss/index.tsx": $tailwindcss_index,
+    "./routes/usercenter/login.account.ts": $usercenter_login_account,
     "./routes/webrtc.tsx": $webrtc,
   },
   islands: {

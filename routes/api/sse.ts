@@ -10,7 +10,6 @@ export const handler: Handlers = {
         inv = setInterval(() => {
           const message = `event: message\ndata: It is ${new Date().toISOString()}\n\n`;
           console.log(message);
-          
           controller.enqueue(encoder.encode(message));
         }, 1000);
        

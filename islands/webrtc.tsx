@@ -16,7 +16,9 @@ export default function webglOnWorker() {
         },
       }).then((stream) => {
         videoRef.current!.srcObject = stream;
-      });
+      }).catch((e)=>{
+        globalThis.alert(e.message)
+      })
     }
   }, [videoRef]);
 
