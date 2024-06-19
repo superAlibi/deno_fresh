@@ -43,8 +43,8 @@ export default (p: any) => {
       <fieldset class="text-center ">
         <legend class="text-2xl py-8">访问认证</legend>
         <div class=" w-60 m-auto mb-4">
-          <label class=" flex justify-between">
-            <span>账户👨‍✈️</span>
+          <label class="items-center flex justify-between">
+            <span class="whitespace-nowrap">账户👨‍✈️</span>
             <input
               name="acc"
               onInput={(e) => {
@@ -55,8 +55,8 @@ export default (p: any) => {
           </label>
         </div>
         <div class=" w-60 m-auto ">
-          <label class=" flex justify-between">
-            <span>密码🔑</span>
+          <label class="items-center  flex justify-between">
+            <span class="whitespace-nowrap">密码🔑</span>
             <input
               autocomplete="true"
               type="password"

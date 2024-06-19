@@ -20,6 +20,7 @@ import * as $admin_resume_edit from "./routes/admin/resume/edit.tsx";
 import * as $admin_resume_index from "./routes/admin/resume/index.tsx";
 import * as $admin_token from "./routes/admin/token.tsx";
 import * as $admin_user from "./routes/admin/user.tsx";
+import * as $api_common from "./routes/api/common.ts";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_resume from "./routes/api/resume.ts";
 import * as $api_sse from "./routes/api/sse.ts";
@@ -29,6 +30,7 @@ import * as $api_usercenter_login_account from "./routes/api/usercenter/login.ac
 import * as $async_page from "./routes/async-page.tsx";
 import * as $definehelper from "./routes/definehelper.tsx";
 import * as $event_source from "./routes/event-source.tsx";
+import * as $getServerSecret from "./routes/getServerSecret.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
@@ -39,6 +41,7 @@ import * as $usercenter_login_account from "./routes/usercenter/login.account.ts
 import * as $webrtc from "./routes/webrtc.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $LoginForm from "./islands/LoginForm.tsx";
+import * as $SecretkeyGenAndGetAesTest from "./islands/SecretkeyGenAndGetAesTest.tsx";
 import * as $resume_edit from "./islands/resume/edit.tsx";
 import * as $resume_resumetable from "./islands/resume/resumetable.tsx";
 import * as $sse from "./islands/sse.tsx";
@@ -66,6 +69,7 @@ const manifest = {
     "./routes/admin/resume/index.tsx": $admin_resume_index,
     "./routes/admin/token.tsx": $admin_token,
     "./routes/admin/user.tsx": $admin_user,
+    "./routes/api/common.ts": $api_common,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/resume.ts": $api_resume,
     "./routes/api/sse.ts": $api_sse,
@@ -75,6 +79,7 @@ const manifest = {
     "./routes/async-page.tsx": $async_page,
     "./routes/definehelper.tsx": $definehelper,
     "./routes/event-source.tsx": $event_source,
+    "./routes/getServerSecret.tsx": $getServerSecret,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
     "./routes/login.tsx": $login,
@@ -87,6 +92,7 @@ const manifest = {
   islands: {
     "./islands/Counter.tsx": $Counter,
     "./islands/LoginForm.tsx": $LoginForm,
+    "./islands/SecretkeyGenAndGetAesTest.tsx": $SecretkeyGenAndGetAesTest,
     "./islands/resume/edit.tsx": $resume_edit,
     "./islands/resume/resumetable.tsx": $resume_resumetable,
     "./islands/sse.tsx": $sse,
