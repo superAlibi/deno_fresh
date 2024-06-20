@@ -1,127 +1,67 @@
 import { decodeBase64, encodeBase64 } from "$std/encoding/base64.ts";
 import { Button } from "../components/Button.tsx";
-import { computed, effect, signal } from "@preact/signals";
+import { computed,  signal } from "@preact/signals";
 import { useRef } from "preact/hooks";
-import user from "../routes/admin/user.tsx";
+
+import {
+  createRequestInterceptor,
+  createResponseInterceptor,
+  http,
+  HTTPTool,
+} from "../tools/http.ts";
+import { RSAOAEP } from "../tools/crypto/rsa.ts";
+import { AESCBC } from "../tools/crypto/aes.ts";
 type RespType = {
   data: string;
   message?: string;
 };
-const encoder = new TextEncoder(), textDecoder = new TextDecoder();
-export const GenKeyAndGetAes = () => {
-  const keyInfo = signal<CryptoKeyPair | null>(null);
-  const gening = signal(false);
+const commonServer = new HTTPTool("/api/");
 
+export const GenKeyAndGetAes = () => {
+  const rsa = useRef(new RSAOAEP());
+  const gening = signal(false);
+  const publickey = signal("");
   function gen() {
     gening.value = true;
-    crypto.subtle.generateKey(
-      {
-        name: "RSA-OAEP",
-
-        modulusLength: 2048,
-        publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
-        hash: {
-          name: "SHA-256",
-        },
-      },
-      true,
-      ["encrypt", "decrypt"],
-    ).then((key) => {
-      console.log(key);
-
+    rsa.current.exportPublicKey().then((key) => {
       gening.value = false;
-      keyInfo.value = key;
+      publickey.value = encodeBase64(key);
     });
   }
-  const publickey = signal("");
-  effect(() => {
-    if (!keyInfo.value?.publicKey) {
-      return;
-    }
 
-    crypto.subtle.exportKey("spki", keyInfo.value.publicKey)
-      .then((k) => {
-        console.log(k);
-        console.log(encodeBase64(k));
-
-        publickey.value = encodeBase64(k);
-      }, (e) => {
-        console.error(e);
-      });
-  });
   const aeskey = signal<Uint8Array | null>(null);
   const b64AESKey = computed(() =>
     aeskey.value ? encodeBase64(aeskey.value) : ""
   );
+ 
   function getKey() {
-    const url = new URL("/api/common", location.href);
-    url.searchParams.set("pk", publickey.value);
-
-    fetch(url).then((resp) => resp.json())
-      .then((resp: RespType) => {
-        console.log(resp);
-
+    commonServer.get<RespType>("common", { params: { pk: publickey.value } })
+      .then((resp) => {
         const ciphertext = decodeBase64(resp.data);
-        crypto.subtle.decrypt(
-          { name: "RSA-OAEP" },
-          keyInfo.value!.privateKey,
-          ciphertext,
-        ).then((v) => {
-          console.log(v);
+        rsa.current.decrypt(ciphertext).then((v) => {
           aeskey.value = new Uint8Array(v);
+          const aes = new AESCBC(v);
+          http.options.requestInterceptor = createRequestInterceptor(aes);
+          http.options.responseInterceptor = createResponseInterceptor(aes);
         });
       });
   }
   const textarearef = useRef<HTMLTextAreaElement>(null);
-  const serverSecret = signal<CryptoKey | null>(null);
-  effect(() => {
-    if (!aeskey.value) {
-      return;
-    }
-    crypto.subtle.importKey(
-      "raw",
-      aeskey.value.buffer,
-      "AES-CBC",
-      false,
-      ["encrypt", "decrypt"],
-    ).then((key) => {
-      serverSecret.value = key;
-    });
-  });
+
+
   const outputValue = useRef<HTMLTextAreaElement>(null);
   function send() {
-    if (!serverSecret.value) {
-      return console.log("长江发送异常");
-    }
     console.log("长江发送");
-
-    const iv = crypto.getRandomValues(new Uint8Array(16));
-    crypto.subtle.encrypt(
-      { name: "AES-CBC", iv },
-      serverSecret.value!,
-      encoder.encode(textarearef.current!.value),
-    ).then((v) => {
-      return fetch("/api/common", {
-        method: "POST",
-        body: JSON.stringify({
-          data: encodeBase64(v),
-          iv: encodeBase64(iv),
-        }),
-      });
-    }).then(async (resp) => {
-      const text = await resp.text();
-      outputValue.current!.value = text;
-      return JSON.parse(text) as RespType;
+    http.post("/common", {
+      data:{data: textarearef.current!.value},
     }).then((resp) => {
-      console.log(resp);
-
-      /* const bin = decodeBase64(resp.data);
-      crypto.subtle.decrypt({ name: "AES-CBC", iv }, serverSecret.value!, bin)
-        .then((d) => textDecoder.decode(d))
-        .then((data) => {
-          console.log(data);
-        }); */
-    });
+      outputValue.current!.value = JSON.stringify(resp);
+      return resp as RespType;
+    }).then((resp) => {
+      console.log(resp); 
+    }).catch(e=>{
+      console.trace(e);
+    })
   }
   return (
     <div>

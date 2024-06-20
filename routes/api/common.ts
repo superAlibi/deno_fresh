@@ -63,11 +63,11 @@ export const handler: Handlers = {
           status: 400,
         },
       );
-    })
+    });
   },
   POST(req) {
-    console.log('黄河收到');
-    
+    console.log("黄河收到");
+
     return req.json().then(({ data, iv }) => {
       const bindate = decodeBase64(data);
       const biniv = decodeBase64(iv);
@@ -84,13 +84,11 @@ export const handler: Handlers = {
         serverCryptoKey,
         bindate,
       ).then((d) => {
-        const data=decoder.decode(d)
-        console.log(data);
-        return new Response(JSON.stringify({ data, message: "ok" }));
+        const data = decoder.decode(d);
+        const parsedData = JSON.parse(data);
+        return new Response(JSON.stringify({ ...parsedData, message: "ok" }));
       });
     }).catch((e) => {
-      console.error(e);
-
       return new Response(JSON.stringify({ message: "Invalid ciphertext" }), {
         status: 500,
       });

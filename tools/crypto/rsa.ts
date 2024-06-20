@@ -16,11 +16,20 @@ export class RSAOAEP {
       ["encrypt", "decrypt"],
     );
   }
-  getPublickey(format: "jwk" | "pkcs8" | "spki" = "spki") {
-    return crypto.subtle.exportKey(format, this.#cryptoKeyPair!.publicKey);
+  async exportPublicKey() {
+    if (!this.#cryptoKeyPair) {
+      await this.initCryptKey();
+    }
+    return crypto.subtle.exportKey(
+      "spki",
+      this.#cryptoKeyPair!.publicKey,
+    ) as Promise<ArrayBuffer>;
   }
-  get publicKey() {
-    return this.#cryptoKeyPair?.publicKey;
+  async publicKey() {
+    if (!this.#cryptoKeyPair) {
+      await this.initCryptKey();
+    }
+    return this.#cryptoKeyPair!.publicKey;
   }
   async encrypt(data: ArrayBuffer, publickKey?: CryptoKey) {
     if (!this.#cryptoKeyPair) {
