@@ -20,7 +20,8 @@ import * as $admin_resume_edit from "./routes/admin/resume/edit.tsx";
 import * as $admin_resume_index from "./routes/admin/resume/index.tsx";
 import * as $admin_token from "./routes/admin/token.tsx";
 import * as $admin_user from "./routes/admin/user.tsx";
-import * as $api_common from "./routes/api/common.ts";
+import * as $api_middleware from "./routes/api/_middleware.ts";
+import * as $api_common_index from "./routes/api/common/index.ts";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_resume from "./routes/api/resume.ts";
 import * as $api_sse from "./routes/api/sse.ts";
@@ -69,7 +70,8 @@ const manifest = {
     "./routes/admin/resume/index.tsx": $admin_resume_index,
     "./routes/admin/token.tsx": $admin_token,
     "./routes/admin/user.tsx": $admin_user,
-    "./routes/api/common.ts": $api_common,
+    "./routes/api/_middleware.ts": $api_middleware,
+    "./routes/api/common/index.ts": $api_common_index,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/resume.ts": $api_resume,
     "./routes/api/sse.ts": $api_sse,

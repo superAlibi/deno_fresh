@@ -1,10 +1,13 @@
 import { Handlers } from "$fresh/server.ts";
 import { decodeBase64, encodeBase64 } from "$std/encoding/base64.ts";
-import { getServerSecretKey } from "../../denokv/serverkey.ts";
-export let serverCryptoKey: CryptoKey;
-export const decoder = new TextDecoder();
+import { getServerSecretKey } from "../../../denokv/serverkey.ts";
+import {AESCBC} from '../../../tools/crypto/aes.ts'
+import {RSAOAEP} from '../../../tools/crypto/rsa.ts'
+let serverCryptoKey: CryptoKey;
+ const decoder = new TextDecoder();
 export const handler: Handlers = {
-  GET(req) {
+  GET(req,ctx) {
+    
     const pk = new URL(req.url).searchParams.get("pk");
 
     if (!pk) {
