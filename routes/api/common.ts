@@ -89,6 +89,7 @@ export const handler: Handlers = {
         return new Response(JSON.stringify({ ...parsedData, message: "ok" }));
       });
     }).catch((e) => {
+      console.error(e);
       return new Response(JSON.stringify({ message: "Invalid ciphertext" }), {
         status: 500,
       });

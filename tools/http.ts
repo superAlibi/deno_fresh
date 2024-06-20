@@ -52,15 +52,14 @@ class SyncEventDispatcher {
 
   /**
    * 触发事件，同步执行所有监听该事件的处理函数
-   * @param {string} eventName 事件名称
-   * @param {*} [detail] 传递给事件处理函数的参数
+   * @param  eventName 事件名称
    */
   dispatchEvent(event: InterceptorEvent) {
     const listeners = this.events[event.type];
     if (listeners) {
       for (const listener of listeners) {
         try {
-          listener(event.data as Request & Response); // 执行事件处理函数，可传入参数
+          listener(event.data.clone() as Request & Response); // 执行事件处理函数，可传入参数
         } catch (error) {
           console.error(`Error handling '${event.type}' event:`, error);
         }
@@ -214,7 +213,6 @@ export const createRequestInterceptor = (
     options: InterceptorConfig,
   ) => {
     const { url, data, ...ops } = options;
-    console.log(url);
 
     const has = whitelist.some((item) => url.includes(item));
     if (has) {
@@ -232,7 +230,6 @@ export const createRequestInterceptor = (
       const bin = textEncoder.encode(originalData);
       const iv = crypto.getRandomValues(new Uint8Array(16));
       const ciphertext = await aes.encrypt(bin, iv);
-      console.log(ciphertext);
 
       ops.body = JSON.stringify({
         data: encodeBase64(ciphertext),
