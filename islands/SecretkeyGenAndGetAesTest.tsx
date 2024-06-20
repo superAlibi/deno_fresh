@@ -2,10 +2,12 @@ import { decodeBase64, encodeBase64 } from "$std/encoding/base64.ts";
 import { Button } from "../components/Button.tsx";
 import { computed, effect, signal } from "@preact/signals";
 import { useRef } from "preact/hooks";
+import user from "../routes/admin/user.tsx";
 type RespType = {
   data: string;
   message?: string;
 };
+const encoder = new TextEncoder(), textDecoder = new TextDecoder();
 export const GenKeyAndGetAes = () => {
   const keyInfo = signal<CryptoKeyPair | null>(null);
   const gening = signal(false);
@@ -15,10 +17,11 @@ export const GenKeyAndGetAes = () => {
     crypto.subtle.generateKey(
       {
         name: "RSA-OAEP",
+
         modulusLength: 2048,
         publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
         hash: {
-          name: "SHA-512", // 这边如果后端使用公钥加密，要注意与前端一致
+          name: "SHA-256",
         },
       },
       true,
@@ -46,8 +49,10 @@ export const GenKeyAndGetAes = () => {
         console.error(e);
       });
   });
-  const aeskey = signal<Uint8Array>(new Uint8Array(32));
-  const b64AESKey = computed(() => encodeBase64(aeskey.value));
+  const aeskey = signal<Uint8Array | null>(null);
+  const b64AESKey = computed(() =>
+    aeskey.value ? encodeBase64(aeskey.value) : ""
+  );
   function getKey() {
     const url = new URL("/api/common", location.href);
     url.searchParams.set("pk", publickey.value);
@@ -68,17 +73,62 @@ export const GenKeyAndGetAes = () => {
       });
   }
   const textarearef = useRef<HTMLTextAreaElement>(null);
+  const serverSecret = signal<CryptoKey | null>(null);
+  effect(() => {
+    if (!aeskey.value) {
+      return;
+    }
+    crypto.subtle.importKey(
+      "raw",
+      aeskey.value.buffer,
+      "AES-CBC",
+      false,
+      ["encrypt", "decrypt"],
+    ).then((key) => {
+      serverSecret.value = key;
+    });
+  });
+  const outputValue = useRef<HTMLTextAreaElement>(null);
   function send() {
-    /* crypto.subtle.encrypt({
-      name:''
-    }) */
+    if (!serverSecret.value) {
+      return console.log("长江发送异常");
+    }
+    console.log("长江发送");
+
+    const iv = crypto.getRandomValues(new Uint8Array(16));
+    crypto.subtle.encrypt(
+      { name: "AES-CBC", iv },
+      serverSecret.value!,
+      encoder.encode(textarearef.current!.value),
+    ).then((v) => {
+      return fetch("/api/common", {
+        method: "POST",
+        body: JSON.stringify({
+          data: encodeBase64(v),
+          iv: encodeBase64(iv),
+        }),
+      });
+    }).then(async (resp) => {
+      const text = await resp.text();
+      outputValue.current!.value = text;
+      return JSON.parse(text) as RespType;
+    }).then((resp) => {
+      console.log(resp);
+
+      /* const bin = decodeBase64(resp.data);
+      crypto.subtle.decrypt({ name: "AES-CBC", iv }, serverSecret.value!, bin)
+        .then((d) => textDecoder.decode(d))
+        .then((data) => {
+          console.log(data);
+        }); */
+    });
   }
   return (
     <div>
       <div>
         <label htmlFor="publickey">
           公钥
-          <textarea class="w-full" rows={6} disabled={true} id="publickey">
+          <textarea class="w-full" rows={3} disabled={true} id="publickey">
             {publickey}
           </textarea>
         </label>
@@ -96,11 +146,25 @@ export const GenKeyAndGetAes = () => {
         获得server secret key
       </Button>
       <div>
-        <label htmlFor="inputValue">
-
-        <textarea id="inputValue" ref={textarearef}></textarea>
-
-        </label>
+        <div>
+          <label htmlFor="inputValue">
+            需要加密的信息
+            <textarea class="w-full" id="inputValue" ref={textarearef}>
+            </textarea>
+          </label>
+        </div>
+        <div>
+          <label htmlFor="outputValue">
+            黄河回应
+            <textarea
+              class="w-full"
+              id="outputValue"
+              ref={outputValue}
+              disabled={true}
+            >
+            </textarea>
+          </label>
+        </div>
         <Button onClick={send}>发送加密数据</Button>
       </div>
     </div>

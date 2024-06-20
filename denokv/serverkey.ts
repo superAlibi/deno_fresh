@@ -9,7 +9,7 @@ globalThis.addEventListener("beforeunload", () => {
 const secretKey = Deno.env.get("server-secret-key");
 let parsedSecretKey: Uint8Array;
 if (!secretKey) {
-  parsedSecretKey = crypto.getRandomValues(new Uint8Array(32));
+  parsedSecretKey = crypto.getRandomValues(new Uint8Array(16));
 } else {
   parsedSecretKey = decodeBase64(secretKey);
 }
