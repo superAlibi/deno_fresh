@@ -6,6 +6,7 @@ import { GetUserInfo, UpdateUserInfo } from "../../../denokv/user/index.ts";
 import { SetTokenInfo } from "../../../denokv/index.ts";
 import { TokenInfo } from "../../../denokv/index.ts";
 import { DeleteToken } from "../../../denokv/index.ts";
+import { ParsedReqInfo } from "../_middleware.ts";
 export interface CmmitInfo {
   acc: string;
   pwd: string;
@@ -17,14 +18,14 @@ export interface LoginForm {
 }
 // const fileENV = await load();
 
-export const handler: Handlers = {
+export const handler: Handlers<ParsedReqInfo<CmmitInfo>> = {
   async POST(req, _ctx) {
-    const form: CmmitInfo = await req.json();
+    const form: CmmitInfo = _ctx.data.reqbody;
     const randomArr = crypto.getRandomValues(new Uint8Array(16));
     const info = await GetUserInfo(form.acc);
     // 密码不正确
     if (info?.password != form.pwd) {
-      return new Response(JSON.stringify("密码或账号错误"), {
+      return new Response(JSON.stringify({ message: "密码或账号错误" }), {
         status: 400,
       });
     }

@@ -9,7 +9,7 @@ type ResponseInterceptor<T = unknown> = (
 ) => T | Promise<T>;
 interface HTTPToolOptions extends RequestInit {
   params?: string[][] | Record<string, string> | string | URLSearchParams;
-  data?: Record<string, unknown>;
+  data?: unknown;
   requestInterceptor?: RequestInterceptor;
   responseInterceptor?: ResponseInterceptor;
 }
@@ -280,7 +280,7 @@ export const createResponseInterceptor = (
         return json;
       }
     } else {
-      return Promise.reject(message);
+      return Promise.reject(new Error(message));
     }
   };
   return responseInterceptor;

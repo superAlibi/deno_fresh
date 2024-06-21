@@ -1,5 +1,7 @@
 import { FreshContext } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
+import { decodeBase64 } from "$std/encoding/base64.ts";
+import { CurrentAES } from "../../tools/crypto/server.ts";
 export interface STDReq {
   data: string;
   iv: string;
@@ -21,6 +23,7 @@ const whiteList = [
 // 加密排除名单列表
 const encryptExcludeList: string[] = [];
 const nobodymethods = ["GET", "HEAD"];
+const decoder = new TextDecoder(), encoder = new TextEncoder();
 export async function handler(
   req: Request,
   ctx: FreshContext<ParsedReqInfo>,
@@ -32,12 +35,12 @@ export async function handler(
       query: urlObj.searchParams,
     };
   } else {
-    const data={
+    const data = {
       reqbody: await req.clone().json(),
       query: urlObj.searchParams,
     };
-    
-    ctx.data = data
+
+    ctx.data = data;
   }
 
   // 白名单列表
@@ -57,9 +60,14 @@ export async function handler(
     return resp;
   }
 
-  // ctx.state=
+  const { data, iv } = ctx.data.reqbody as STDReq;
+  return CurrentAES.decrypt(decodeBase64(data), decodeBase64(iv))
+    .then((plaintext) => {
+      const info = decoder.decode(plaintext);
+      ctx.data.reqbody = JSON.parse(info);
+    }).then(async () => {
+      const resp = await ctx.next();
 
-  const resp = await ctx.next();
-
-  return resp;
+      return resp;
+    });
 }

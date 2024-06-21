@@ -1,6 +1,7 @@
 import { defineLayout } from "$fresh/server.ts";
-
+import { useInit } from "../../tools/hooks.ts";
 export default defineLayout((_, { Component }) => {
+  useInit()
   return (
     <div class="flex">
       <aside class=" h-screen overflow-x-hidden basis-60 bg-slate-600 text-white">

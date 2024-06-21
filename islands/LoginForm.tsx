@@ -2,8 +2,11 @@
 
 import { useSignal } from "@preact/signals";
 import { CmmitInfo } from "../routes/api/user/login.ts";
+import { http } from "../tools/http.ts";
+import { useInit } from "../tools/hooks.ts";
 
 export default (p: any) => {
+  useInit();
   const form = useSignal<CmmitInfo>({
       acc: "",
       pwd: "",
@@ -17,16 +20,14 @@ export default (p: any) => {
       return;
     }
     loging.value = true;
-    fetch("/api/user/login", {
-      method: "post",
-      body: JSON.stringify(form.value),
-    }).then(async (resp) => {
-      const msg = await resp.json();
-      if (resp.ok) {
-        location.href = "/admin";
-      } else {
-        errorInfo.value = msg;
-      }
+    http.post("/user/login", {
+      data: form.value,
+    }).then(() => {
+      location.href = "/admin";
+    }, (e) => {
+      console.error(e);
+      
+      errorInfo.value = e.message;
     }).finally(() => {
       loging.value = false;
     });

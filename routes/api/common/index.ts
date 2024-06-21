@@ -1,8 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { decodeBase64, encodeBase64 } from "$std/encoding/base64.ts";
 import { getServerSecretKey } from "../../../denokv/serverkey.ts";
-import { AESCBC } from "../../../tools/crypto/aes.ts";
-
 import { RSAOAEP } from "../../../tools/crypto/rsa.ts";
 import { CurrentAES } from "../../../tools/crypto/server.ts";
 import { ParsedReqInfo, STDReq } from "../_middleware.ts";
