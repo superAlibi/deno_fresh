@@ -50,7 +50,20 @@ export const GenKeyAndGetAes = () => {
 
 
   const outputValue = useRef<HTMLTextAreaElement>(null);
-  function send() {
+  function optionSend() {
+    console.log("长江发送");
+    http.option("/common", {
+      data:{data: textarearef.current!.value},
+    }).then((resp) => {
+      outputValue.current!.value = JSON.stringify(resp);
+      return resp as RespType;
+    }).then((resp) => {
+      console.log(resp); 
+    }).catch(e=>{
+      console.trace(e);
+    })
+  }
+  function postSend() {
     console.log("长江发送");
     http.post("/common", {
       data:{data: textarearef.current!.value},
@@ -105,7 +118,8 @@ export const GenKeyAndGetAes = () => {
             </textarea>
           </label>
         </div>
-        <Button onClick={send}>发送加密数据</Button>
+        <Button title="返回的数据将不会加密" onClick={optionSend}>发送加密数据(OPTION)</Button>
+        <Button title="返回的数据将会加密" onClick={postSend}>发送加密数据(POST)</Button>
       </div>
     </div>
   );

@@ -1,6 +1,19 @@
 export class RSAOAEP {
   #cryptoKeyPair?: CryptoKeyPair;
-
+  static parsePublicKey(key: ArrayBuffer) {
+    return crypto.subtle.importKey(
+      "spki",
+      key,
+      {
+        name: "RSA-OAEP",
+        hash: {
+          name: "SHA-256",
+        },
+      },
+      true,
+      ["encrypt"],
+    );
+  }
   private async initCryptKey() {
     this.#cryptoKeyPair = await crypto.subtle.generateKey(
       {
@@ -31,17 +44,21 @@ export class RSAOAEP {
     }
     return this.#cryptoKeyPair!.publicKey;
   }
-  async encrypt(data: ArrayBuffer, publickKey?: CryptoKey) {
-    if (!this.#cryptoKeyPair) {
-      await this.initCryptKey();
-    }
+
+  static encrypt(publickKey: CryptoKey, data: ArrayBuffer) {
     return crypto.subtle.encrypt(
       {
         name: "RSA-OAEP",
       },
-      publickKey || this.#cryptoKeyPair!.publicKey,
+      publickKey,
       data,
     );
+  }
+  async encrypt(data: ArrayBuffer) {
+    if (!this.#cryptoKeyPair) {
+      await this.initCryptKey();
+    }
+    return RSAOAEP.encrypt(this.#cryptoKeyPair!.publicKey, data);
   }
   async decrypt(data: ArrayBuffer) {
     if (!this.#cryptoKeyPair) {

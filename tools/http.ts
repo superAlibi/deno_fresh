@@ -201,6 +201,13 @@ export class HTTPTool extends SyncEventDispatcher {
       method: "POST",
     });
   }
+  option<T = unknown>(url: string, options: Omit<HTTPToolOptions, "url"> = {}) {
+    return this.request<T>(url, {
+      ...this.options,
+      ...options,
+      method: "OPTIONS",
+    });
+  }
 }
 
 const textDecoder = new TextDecoder(), textEncoder = new TextEncoder();
@@ -265,11 +272,7 @@ export const createResponseInterceptor = (
       try {
         const bin = decodeBase64(data);
         const ivBin = decodeBase64(iv);
-
-        if (whitelist.some((item) => resp.url.includes(item))) {
-          return json;
-        }
-        const plaintext = await aes.encrypt(bin, ivBin);
+        const plaintext = await aes.decrypt(bin, ivBin);
         return JSON.parse(textDecoder.decode(plaintext));
       } catch (e) {
         console.error("意外:无法解码数据:",e.message);

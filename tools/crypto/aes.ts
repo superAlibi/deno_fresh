@@ -1,10 +1,32 @@
+import { getServerSecretKey } from "../../denokv/serverkey.ts";
+
 export class AESCBC {
-  #key: ArrayBuffer | Uint8Array;
+  #key?: ArrayBuffer | Uint8Array;
   #cryptoKey?: CryptoKey;
-  constructor(key: ArrayBuffer | Uint8Array) {
-    this.#key = key;
+  constructor(key: ArrayBuffer | Uint8Array | CryptoKey) {
+    if (key instanceof CryptoKey) {
+      this.#cryptoKey = key;
+    } else {
+      this.#key = key;
+    }
   }
-  private async initCryptoKey() {
+  static parseKey(serverKey: ArrayBuffer) {
+    return crypto.subtle.importKey(
+      "raw",
+      serverKey,
+      { name: "AES-CBC", length: 128 },
+      true,
+      ["encrypt", "decrypt"],
+    );
+  }
+  private async initCryptoKey(force = false) {
+    if (this.#cryptoKey && !force) {
+      return;
+    }
+    if (!this.#key) {
+      console.error("意外的初始化:无效的密钥");
+      return;
+    }
     this.#cryptoKey = await crypto.subtle.importKey(
       "raw",
       this.#key,
@@ -13,7 +35,10 @@ export class AESCBC {
       ["encrypt", "decrypt"],
     );
   }
-  async encrypt(plaintext: ArrayBuffer | Uint8Array, iv: ArrayBuffer | Uint8Array) {
+  async encrypt(
+    plaintext: ArrayBuffer | Uint8Array,
+    iv: ArrayBuffer | Uint8Array,
+  ) {
     if (!this.#cryptoKey) {
       await this.initCryptoKey();
     }
@@ -23,8 +48,11 @@ export class AESCBC {
       plaintext,
     );
   }
-   
-  async decrypt(ciphertext: ArrayBuffer | Uint8Array, iv: ArrayBuffer | Uint8Array) {
+
+  async decrypt(
+    ciphertext: ArrayBuffer | Uint8Array,
+    iv: ArrayBuffer | Uint8Array,
+  ) {
     if (!this.#cryptoKey) {
       await this.initCryptoKey();
     }
@@ -35,3 +63,4 @@ export class AESCBC {
     );
   }
 }
+
