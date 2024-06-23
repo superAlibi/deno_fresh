@@ -55,12 +55,16 @@ export const handler: Handler = async (req, ctx) => {
   ctx.state.query = new URL(req.url).searchParams;
   const resp = await ctx.next();
   // 重写cookie,保持在线
-  /* setCookie(resp.headers, {
-    name: "t",
-    value: token,
-    expires: newDate.add(result.maxAge, result.ageUnit).toDate(),
-    path: "/admin",
-    httpOnly: true,
-  }); */
+  const values = getCookies(resp.headers);
+  // 如果没有删除,则续期
+  if (values.t) {
+    setCookie(resp.headers, {
+      name: "t",
+      value: token,
+      expires: newDate.add(result.maxAge, result.ageUnit).toDate(),
+      path: "/admin",
+      httpOnly: true,
+    });
+  }
   return resp;
 };

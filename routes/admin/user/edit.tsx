@@ -1,5 +1,4 @@
 import { defineRoute, Handlers } from "$fresh/server.ts";
-import { context } from "https://deno.land/x/esbuild@v0.20.2/mod.js";
 import { UserInfo } from "../../../denokv/user.ts";
 import { GetUserInfo } from "../../../denokv/user.ts";
 import { PCTX } from "../../../types.d.ts";
@@ -15,8 +14,6 @@ export const handler: Handlers<unknown, STATE> = {
   },
   async POST(req, ctx) {
     const formdata = await req.formData();
-    console.log(Object.fromEntries(formdata.entries()));
-
     const uuid = formdata.get("uuid") as string,
       account = formdata.get("account") as string,
       password = formdata.get("password") as string,
@@ -27,7 +24,6 @@ export const handler: Handlers<unknown, STATE> = {
       password,
       status: "",
     };
-    console.log(commitInfo);
 
     if (password !== repassword) {
       ctx.state.msg = "两次密码不一致";
@@ -47,14 +43,8 @@ export const handler: Handlers<unknown, STATE> = {
           },
           status: 302,
         });
-        // deleteCookie(req.headers, "t");
-
-        setCookie(resp.headers, {
-          name: "t",
+        deleteCookie(resp.headers, "t", {
           path: "/admin",
-          value: "",
-          expires: new Date(),
-          httpOnly: true,
         });
         return resp;
       } else {
