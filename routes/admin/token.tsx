@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { DeleteToken, GetTokens, TokenInfo } from "../../denokv/index.ts";
+import { DeleteToken, GetTokens, TokenInfo } from "../../denokv/user.ts";
 import Tokentable from "../../islands/user/tokentable.tsx";
 export const handler: Handlers<TokenInfo[]> = {
   async GET(req, ctx) {

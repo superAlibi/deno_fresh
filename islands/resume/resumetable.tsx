@@ -1,5 +1,5 @@
 import { useRef } from "preact/hooks";
-import { CredentialMeta } from "../../denokv/resume/index.ts";
+import { CredentialMeta } from "../../denokv/resume.ts";
 import { useComputed, useSignal } from "@preact/signals";
 // import Edit from "./edit.tsx";
 import { JSX } from "preact";

@@ -1,6 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { DeleteCredit } from "../../../denokv/index.ts";
-import { CredentialMeta, GetCreditList } from "../../../denokv/resume/index.ts";
+import { DeleteCredit } from "../../../denokv/resume.ts";
+import { CredentialMeta, GetCreditList } from "../../../denokv/resume.ts";
 import Resumetable from "../../../islands/resume/resumetable.tsx";
 export const handler: Handlers = {
   async GET(_, ctx) {

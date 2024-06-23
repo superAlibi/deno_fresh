@@ -19,7 +19,8 @@ import * as $admin_login from "./routes/admin/login.tsx";
 import * as $admin_resume_edit from "./routes/admin/resume/edit.tsx";
 import * as $admin_resume_index from "./routes/admin/resume/index.tsx";
 import * as $admin_token from "./routes/admin/token.tsx";
-import * as $admin_user from "./routes/admin/user.tsx";
+import * as $admin_user_edit from "./routes/admin/user/edit.tsx";
+import * as $admin_user_list from "./routes/admin/user/list.tsx";
 import * as $api_middleware from "./routes/api/_middleware.ts";
 import * as $api_common_index from "./routes/api/common/index.ts";
 import * as $api_joke from "./routes/api/joke.ts";
@@ -69,7 +70,8 @@ const manifest = {
     "./routes/admin/resume/edit.tsx": $admin_resume_edit,
     "./routes/admin/resume/index.tsx": $admin_resume_index,
     "./routes/admin/token.tsx": $admin_token,
-    "./routes/admin/user.tsx": $admin_user,
+    "./routes/admin/user/edit.tsx": $admin_user_edit,
+    "./routes/admin/user/list.tsx": $admin_user_list,
     "./routes/api/_middleware.ts": $api_middleware,
     "./routes/api/common/index.ts": $api_common_index,
     "./routes/api/joke.ts": $api_joke,

@@ -5,7 +5,7 @@ import {
   CredentialExpiration,
   NotCredentialPage,
 } from "../../components/resume/index.tsx";
-import { AddDriversByCredit, GetCredit } from "../../denokv/index.ts";
+import { AddDriversByCredit, GetCredit } from "../../denokv/resume.ts";
 interface Credentials {
   // 没有凭据
   hasCredit: boolean;

@@ -1,8 +1,9 @@
 import { Handler } from "$fresh/server.ts";
 import { deleteCookie, getCookies, setCookie } from "$std/http/mod.ts";
-import { DeleteToken, GetTokenInfo, SetTokenInfo } from "../../denokv/index.ts";
+import { DeleteToken, GetTokenInfo, SetTokenInfo } from "../../denokv/user.ts";
 import dayjs from "npm:dayjs@latest";
 const witeList = ["/admin/login"];
+
 export const handler: Handler = async (req, ctx) => {
   const cookies = getCookies(req.headers),
     token = cookies["t"];
@@ -51,14 +52,15 @@ export const handler: Handler = async (req, ctx) => {
     }
   });
   ctx.state.userInfo = result.accountInfo;
+  ctx.state.query = new URL(req.url).searchParams;
   const resp = await ctx.next();
   // 重写cookie,保持在线
-  setCookie(resp.headers, {
+  /* setCookie(resp.headers, {
     name: "t",
     value: token,
     expires: newDate.add(result.maxAge, result.ageUnit).toDate(),
     path: "/admin",
     httpOnly: true,
-  });
+  }); */
   return resp;
 };

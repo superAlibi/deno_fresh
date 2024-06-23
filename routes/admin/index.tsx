@@ -1,18 +1,13 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { useComputed } from "@preact/signals";
-import {
-  CredentialMeta,
-  GetCreditList,
-  GetTokens,
-  TokenInfo
-} from "../../denokv/index.ts";
+import { GetTokens, TokenInfo } from "../../denokv/user.ts";
+import { CredentialMeta, GetCreditList } from "../../denokv/resume.ts";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
     const credits = await GetCreditList();
     const liveUsers = await GetTokens();
-  
-    
+
     return ctx.render({ credits, liveUsers });
   },
 };

@@ -1,5 +1,5 @@
 import { JSX } from "preact/jsx-runtime";
-import { TokenInfo } from "../../denokv/index.ts";
+import { TokenInfo } from "../../denokv/user.ts";
 import { useComputed, useSignal } from "@preact/signals";
 interface TokenTableProp {
   data?: TokenInfo[];

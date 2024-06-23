@@ -6,7 +6,7 @@ export default function () {
           <a class="h-full block px-4 py-2" href="/admin">首页</a>
         </li>
         <li class=" hover:bg-slate-500">
-          <a class=" h-full block px-4 py-2" href="/admin/user">
+          <a class=" h-full block px-4 py-2" href="/admin/user/list">
             账户管理
           </a>
         </li>

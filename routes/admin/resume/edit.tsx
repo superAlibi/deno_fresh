@@ -6,7 +6,7 @@ import { Select } from "../../../components/select.tsx";
 import {
   UpdateCredential,
   UpdateCredentialParam,
-} from "../../../denokv/index.ts";
+} from "../../../denokv/resume.ts";
 import { ManipulateType } from "npm:dayjs@latest";
 const units = [
   ["hours", "小时"],

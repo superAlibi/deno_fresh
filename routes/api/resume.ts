@@ -4,7 +4,7 @@ import {
   GetCredit,
   GetCreditList,
   UpdateCredential,
-} from "../../denokv/index.ts";
+} from "../../denokv/resume.ts";
 
 export const handler: Handlers = {
   /**
