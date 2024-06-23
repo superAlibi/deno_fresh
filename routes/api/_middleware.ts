@@ -23,7 +23,7 @@ const whiteList = [
 // 加密排除名单列表
 const encryptExcludeList: string[] = [];
 const nobodymethods = ["GET", "HEAD"];
-const decoder = new TextDecoder(), encoder = new TextEncoder();
+const decoder = new TextDecoder()
 export async function handler(
   req: Request,
   ctx: FreshContext<ParsedReqInfo>,
@@ -50,7 +50,7 @@ export async function handler(
   }
   const cookies = getCookies(req.headers);
 
-  if (!cookies["token"]) {
+  if (!cookies["t"]) {
     console.warn("没有访问令牌");
   }
 

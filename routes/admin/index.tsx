@@ -4,8 +4,6 @@ import {
   CredentialMeta,
   GetCreditList,
   GetTokens,
-  GetUserList,
-  UserInfo,
   TokenInfo
 } from "../../denokv/index.ts";
 
@@ -13,6 +11,8 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     const credits = await GetCreditList();
     const liveUsers = await GetTokens();
+  
+    
     return ctx.render({ credits, liveUsers });
   },
 };
