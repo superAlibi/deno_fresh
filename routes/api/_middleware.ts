@@ -19,6 +19,7 @@ const whiteList = [
   "/api/resume",
   "/api/sse",
   "/api/test",
+  "/api/whitelist/wx",
 ];
 // 加密排除名单列表
 const encryptExcludeList: string[] = [];

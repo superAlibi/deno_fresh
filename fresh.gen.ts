@@ -29,6 +29,7 @@ import * as $api_sse from "./routes/api/sse.ts";
 import * as $api_test from "./routes/api/test.ts";
 import * as $api_user_login from "./routes/api/user/login.ts";
 import * as $api_usercenter_login_account from "./routes/api/usercenter/login.account.ts";
+import * as $api_whitelist_wx from "./routes/api/whitelist/wx.ts";
 import * as $async_page from "./routes/async-page.tsx";
 import * as $definehelper from "./routes/definehelper.tsx";
 import * as $event_source from "./routes/event-source.tsx";
@@ -80,6 +81,7 @@ const manifest = {
     "./routes/api/test.ts": $api_test,
     "./routes/api/user/login.ts": $api_user_login,
     "./routes/api/usercenter/login.account.ts": $api_usercenter_login_account,
+    "./routes/api/whitelist/wx.ts": $api_whitelist_wx,
     "./routes/async-page.tsx": $async_page,
     "./routes/definehelper.tsx": $definehelper,
     "./routes/event-source.tsx": $event_source,
