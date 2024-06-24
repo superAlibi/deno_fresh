@@ -1,5 +1,5 @@
-import { defineRoute, Handlers,  } from "$fresh/server.ts";
-
+import { defineRoute, Handlers } from "$fresh/server.ts";
+import STDTable, { Column } from "../../../components/stdtable.tsx";
 
 import { UserInfo } from "../../../denokv/user.ts";
 import { GetUserList } from "../../../denokv/user.ts";
@@ -10,40 +10,39 @@ export const handler: Handlers<any, Array<UserInfo> | null> = {
     ctx.state = list;
     return ctx.render();
   },
- 
 };
-export default defineRoute<Array<UserInfo> >(async (req, ctx) => {
-
-
+export default defineRoute<Array<UserInfo>>((req, ctx) => {
+  const colConfig: Column<UserInfo>[] = [
+    {
+      title: "账号",
+      key: "account",
+      type:'selection'
+    },
+    {
+      title: "账号",
+      key: "account",
+    },
+    {
+      title: "状态",
+      key: "status",
+    },
+    {
+      title: "操作",
+      type: "action",
+      render: (i) => {
+        return (
+          <form action="/admin/user/edit">
+            <input type="hidden" name="ui" value={i.account} />
+            <input type="submit" value="修改密码"></input>
+          </form>
+        );
+      },
+    },
+  ];
   return (
     <div>
       <h3>用户管理部分</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>账号</th>
-            <th>状态</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ctx.state.map((i) => {
-            return (
-              <tr>
-                <td>{i.account}</td>
-                <td>{i.status}</td>
-                <td>
-                  <form action="/admin/user/edit">
-                    <input type="hidden" name="ui" value={i.account} />
-                    <input type="submit" value="修改密码"></input>
-                  </form>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <STDTable data={ctx.state} columns={colConfig}></STDTable>
     </div>
   );
 });

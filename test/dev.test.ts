@@ -1,4 +1,4 @@
-import { UpdateUserInfo, UserInfo } from "../denokv/resume.ts";
+import { UpdateUserInfo, UserInfo } from "../denokv/user.ts";
 const user: UserInfo = {
   uuid: crypto.randomUUID(),
   account: "admin",
