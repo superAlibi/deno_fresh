@@ -1,11 +1,10 @@
-// import { JSXInternal } from "preact";
-
 import { useSignal } from "@preact/signals";
 import { CmmitInfo } from "../routes/api/user/login.ts";
 import { http } from "../tools/http.ts";
 import { useInit } from "../tools/hooks.ts";
+import { JSXInternal } from "https://esm.sh/v128/preact@10.19.6/src/jsx.d.ts";
 
-export default (p: any) => {
+export default (p: JSXInternal.HTMLAttributes<HTMLFormElement>) => {
   useInit();
   const form = useSignal<CmmitInfo>({
       acc: "",
@@ -26,7 +25,7 @@ export default (p: any) => {
       location.href = "/admin";
     }, (e) => {
       console.error(e);
-      
+
       errorInfo.value = e.message;
     }).finally(() => {
       loging.value = false;
@@ -49,7 +48,7 @@ export default (p: any) => {
             <input
               name="acc"
               onInput={(e) => {
-                form.value = { ...form.value, acc: e.target!.value };
+                form.value = { ...form.value, acc: e.currentTarget.value };
               }}
               value={form.value.acc}
             />
@@ -63,8 +62,8 @@ export default (p: any) => {
               type="password"
               name="pwd"
               onInput={(e) => {
-                const { target } = e;
-                form.value = { ...form.value, pwd: target!.value };
+                const { currentTarget } = e;
+                form.value = { ...form.value, pwd: currentTarget.value };
               }}
               value={form.value.pwd}
             />
