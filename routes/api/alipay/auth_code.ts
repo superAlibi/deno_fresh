@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import { alipaySdk } from "../../../tools/sdk/alipay.ts";
+import { getAlipaySDKInstane } from "../../../tools/sdk/alipay.ts";
 import { ParsedReqInfo } from "../_middleware.ts";
 
 export const handler: Handlers<ParsedReqInfo> = {
@@ -12,7 +12,7 @@ export const handler: Handlers<ParsedReqInfo> = {
     const app_id = ctx.data.query.get("app_id");
     const scope = ctx.data.query.get("scope");
     console.log(req.url);
-    const resut = await alipaySdk.exec("alipay.system.oauth.token", {
+    const resut = await getAlipaySDKInstane().exec("alipay.system.oauth.token", {
       code: auth_code,
       grant_type: "authorization_code",
     });
