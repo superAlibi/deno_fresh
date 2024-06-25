@@ -1,5 +1,5 @@
 import { load } from "$std/dotenv/mod.ts";
-import { UserInfo } from "../denokv/resume.ts";
+import { UserInfo } from "../denokv/user.ts";
 const values = await load();
 
 for (const key in values) {
