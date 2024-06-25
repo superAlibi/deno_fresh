@@ -20,7 +20,7 @@ const whiteList = [
   "/api/sse",
   "/api/test",
   "/api/whitelist/wx",
-  "/api/alipay/redirect",
+  "/api/alipay/auth_code",
   "/api/alipay/notify",
 ];
 // 加密排除名单列表
@@ -64,6 +64,7 @@ export async function handler(
   }
 
   const { data, iv } = ctx.data.reqbody as STDReq;
+  
   return CurrentAES.decrypt(decodeBase64(data), decodeBase64(iv))
     .then((plaintext) => {
       const info = decoder.decode(plaintext);
