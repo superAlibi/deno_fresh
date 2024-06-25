@@ -6,7 +6,7 @@ export const handler: Handlers = {
     const location = Deno.env.get("location")!;
     
     const urlobj = new URL(location);
-    urlobj.pathname = "/api/alipay/redirect";
+    urlobj.pathname = "/api/alipay/auth_code";
     return new Response("", {
       status: 302,
       headers: {
