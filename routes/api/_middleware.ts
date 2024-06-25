@@ -20,6 +20,8 @@ const whiteList = [
   "/api/sse",
   "/api/test",
   "/api/whitelist/wx",
+  "/api/alipay/redirect",
+  "/api/alipay/notify",
 ];
 // 加密排除名单列表
 const encryptExcludeList: string[] = [];

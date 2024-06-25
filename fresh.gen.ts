@@ -21,7 +21,10 @@ import * as $admin_resume_index from "./routes/admin/resume/index.tsx";
 import * as $admin_token from "./routes/admin/token.tsx";
 import * as $admin_user_edit from "./routes/admin/user/edit.tsx";
 import * as $admin_user_list from "./routes/admin/user/list.tsx";
+import * as $alipay from "./routes/alipay.tsx";
 import * as $api_middleware from "./routes/api/_middleware.ts";
+import * as $api_alipay_notify from "./routes/api/alipay/notify.ts";
+import * as $api_alipay_redirect from "./routes/api/alipay/auth_code.ts";
 import * as $api_common_index from "./routes/api/common/index.ts";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_resume from "./routes/api/resume.ts";
@@ -73,7 +76,10 @@ const manifest = {
     "./routes/admin/token.tsx": $admin_token,
     "./routes/admin/user/edit.tsx": $admin_user_edit,
     "./routes/admin/user/list.tsx": $admin_user_list,
+    "./routes/alipay.tsx": $alipay,
     "./routes/api/_middleware.ts": $api_middleware,
+    "./routes/api/alipay/notify.ts": $api_alipay_notify,
+    "./routes/api/alipay/redirect.ts": $api_alipay_redirect,
     "./routes/api/common/index.ts": $api_common_index,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/resume.ts": $api_resume,

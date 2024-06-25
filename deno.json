@@ -1,7 +1,7 @@
 {
   "lock": false,
   "tasks": {
-    "dev-start": "deno run --unstable-temporal -A --watch=static/,routes/ dev.ts",
+    "dev-start": "deno run --unstable-temporal -A --watch=static/,routes/ --location=https://xjm.deno.dev dev.ts",
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
     "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
     "manifest": "deno task cli manifest $(pwd)",
@@ -25,7 +25,8 @@
     "dayjs/": "npm:dayjs@latest/",
     "three": "npm:three@0.163.0",
     "@tailwindcss/forms": "npm:@tailwindcss/forms@0.5.7",
-    "mysql2/promise": "npm:mysql2@3.9.8/promise"
+    "mysql2/promise": "npm:mysql2@3.9.8/promise",
+    "alipaysdk": "npm:alipay-sdk@latest"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "nodeModulesDir": true,
