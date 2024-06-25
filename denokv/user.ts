@@ -21,6 +21,8 @@ export interface UserInfo {
   account: string;
   password: string;
   status: string;
+  alipayOpenId?:string
+  bindsapps?:[]
 }
 /**
  * 通过账号给出用户信息
