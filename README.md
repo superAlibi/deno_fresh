@@ -15,4 +15,5 @@ deno task start
 - ALIPAY_APPID: 阿里巴巴的appid
 - location: 阿里巴巴的重定向地址
 - DBID: 本地连接远程denokv数据库的数据id
-- ALIPAY_PUBLICKEY: 支付宝的公钥
+- ALIPAY_PUBLIC_KEY: 支付宝的公钥
+- APP_PRIVATE_KEY: 应用私钥
