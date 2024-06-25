@@ -4,6 +4,8 @@ export const handler: Handlers = {
   GET() {
     const appid = Deno.env.get("ALIPAY_APPID");
     const location = Deno.env.get("location")!;
+    console.log(location);
+    
     const urlobj = new URL(location);
     urlobj.pathname = "/api/alipay/auth_code";
     const authURLObj = new URL(
@@ -13,10 +15,11 @@ export const handler: Handlers = {
     authURLObj.searchParams.set("scope", "auth_user");
     authURLObj.searchParams.set(
       "redirect_uri",
-      encodeURIComponent(urlobj.toString()),
+      urlobj.toString(),
     );
     authURLObj.searchParams.set("state", "admin");
-
+    console.log(authURLObj.toString());
+    
     return new Response("", {
       status: 302,
       headers: {
