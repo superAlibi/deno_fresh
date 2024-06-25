@@ -1,8 +1,10 @@
-import { AlipaySdk ,AlipaySdkConfig} from "alipaysdk";
+import { AlipaySdk } from "alipaysdk";
 const alipaySdk = new AlipaySdk({
   appId: Deno.env.get("ALIPAY_APPID") as string,
-  privateKey: "xxxxxxxxxx",
-  alipayPublicKey: Deno.env.get("ALIPAY_PUBLICKEY"),
+  privateKey: Deno.env.get("APP_PRIVATE_KEY") as string,
+  alipayPublicKey: Deno.env.get("ALIPAY_PUBLIC_KEY"),
+  gateway:'https://openapi.alipay.com/gateway.do',
+  
 });
 
 export { alipaySdk };
