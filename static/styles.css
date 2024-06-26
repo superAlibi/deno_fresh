@@ -1,3 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+section.content{
+  height:calc(100% - 36px);
+}

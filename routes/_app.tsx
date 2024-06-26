@@ -1,4 +1,5 @@
 import { defineApp, type PageProps } from "$fresh/server.ts";
+import Footer from "../components/footer.tsx";
 export default defineApp((_, { Component }: PageProps) => {
   return (
     <html>
@@ -9,7 +10,10 @@ export default defineApp((_, { Component }: PageProps) => {
         <link rel="stylesheet" href="/styles.css" />
       </head>
       <body class="bg-[#86efac] h-screen">
-        <Component></Component>
+        <section  class="content p-8">
+          <Component></Component>
+        </section>
+        <Footer></Footer>
       </body>
     </html>
   );
