@@ -6,26 +6,30 @@ import { ParsedReqInfo } from "../_middleware.ts";
 export const handler: Handlers<ParsedReqInfo> = {
   async GET(req, ctx) {
     const state = ctx.data.query.get("state");
-    if (!state) {
+    const auth_code = ctx.data.query.get("auth_code");
+    if (!state||!auth_code) {
       return new Response(JSON.stringify({ message: "无效的响应" }), {
         status: 403,
       });
     }
-    const auth_code = ctx.data.query.get("auth_code");
     const app_id = ctx.data.query.get("app_id");
     const scope = ctx.data.query.get("scope");
     console.log(req.url);
-    const resut = await getAlipaySDKInstane().exec(
+    const resut = await getAlipaySDKInstane().curl(
+      "POST",
       "alipay.system.oauth.token",
       {
-        code: auth_code,
-        grant_type: "authorization_code",
+        // needEncrypt:true,
+        body: {
+          code: auth_code,
+          grant_type: "authorization_code",
+        },
       },
     );
     console.log(JSON.stringify(resut));
     const userInfo = await GetUserInfo(state);
     if (userInfo) {
-      userInfo.alipayOpenId = resut.code;
+      userInfo.alipayOpenId = resut.data.code;
       return UpdateUserInfo(userInfo).then(() => new Response("Hello World"));
     } else {
       return new Response(JSON.stringify({ message: "用户绑定失败" }), {
