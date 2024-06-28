@@ -35,7 +35,11 @@
     "three": "npm:three@0.163.0",
     "@tailwindcss/forms": "npm:@tailwindcss/forms@0.5.7",
     "mysql2/promise": "npm:mysql2@3.9.8/promise",
-    "alipaysdk": "npm:alipay-sdk@latest"
+    "alipaysdk": "npm:alipay-sdk@latest",
+    "postgre": "https://deno.land/x/postgres@v0.17.0/mod.ts"
+  },
+  "test": {
+    "include": ["./test/**/*.test.ts"]
   },
   "compilerOptions": {
     "jsx": "react-jsx",
