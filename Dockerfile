@@ -1,12 +1,12 @@
-FROM denoland/deno as build
+FROM denoland/deno:latest as build
 
 # The port that your application listens to.
-EXPOSE 3000
+
 
 WORKDIR /app
 
 # Prefer not to run as root.
-USER deno
+
 
 # Cache the dependencies as a layer (the following two steps are re-run only when deps.ts is modified).
 # Ideally cache deps.ts will download and compile _all_ external files used in main.ts.
@@ -17,7 +17,9 @@ USER deno
 ADD . .
 # Compile the main app so that it doesn't need to be compiled each startup/entry.
 # RUN deno cache main.ts
-CMD [ "deno","task","dev-start" ]   
-# FROM  denoland/deno
-# COPY --from=build /app/_fresh /app
-# CMD deno run  -A  /app/main.js
+RUN deno task build
+FROM  denoland/deno:latest
+EXPOSE 3000
+USER deno
+COPY --from=build /app/_fresh /app
+CMD deno run  -A  /app/main.js

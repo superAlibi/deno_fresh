@@ -23,8 +23,6 @@ import * as $admin_user_edit from "./routes/admin/user/edit.tsx";
 import * as $admin_user_list from "./routes/admin/user/list.tsx";
 import * as $alipay from "./routes/alipay.tsx";
 import * as $api_middleware from "./routes/api/_middleware.ts";
-import * as $api_alipay_auth_code from "./routes/api/alipay/auth_code.ts";
-import * as $api_alipay_notify from "./routes/api/alipay/notify.ts";
 import * as $api_common_index from "./routes/api/common/index.ts";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_resume from "./routes/api/resume.ts";
@@ -78,8 +76,6 @@ const manifest = {
     "./routes/admin/user/list.tsx": $admin_user_list,
     "./routes/alipay.tsx": $alipay,
     "./routes/api/_middleware.ts": $api_middleware,
-    "./routes/api/alipay/auth_code.ts": $api_alipay_auth_code,
-    "./routes/api/alipay/notify.ts": $api_alipay_notify,
     "./routes/api/common/index.ts": $api_common_index,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/resume.ts": $api_resume,

@@ -27,15 +27,14 @@
     "preact/": "https://esm.sh/preact@10.19.6/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
-    "tailwindcss": "npm:tailwindcss@3.3.5",
-    "tailwindcss/": "npm:/tailwindcss@3.3.5/",
-    "tailwindcss/plugin": "npm:/tailwindcss@3.3.5/plugin.js",
+    "tailwindcss": "npm:tailwindcss@latest",
+    "tailwindcss/": "npm:/tailwindcss@latest/",
+    "tailwindcss/plugin": "npm:/tailwindcss@latest/plugin.js",
     "$std/": "https://deno.land/std@0.212.0/",
     "dayjs/": "npm:dayjs@latest/",
     "three": "npm:three@0.163.0",
     "@tailwindcss/forms": "npm:@tailwindcss/forms@0.5.7",
     "mysql2/promise": "npm:mysql2@3.9.8/promise",
-    "alipaysdk": "npm:alipay-sdk@latest",
     "postgre": "https://deno.land/x/postgres@v0.17.0/mod.ts"
   },
   "test": {
