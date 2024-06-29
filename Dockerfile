@@ -17,11 +17,7 @@ USER deno
 ADD . .
 # Compile the main app so that it doesn't need to be compiled each startup/entry.
 # RUN deno cache main.ts
-run deno -v
-run ls
-run deno cache main.ts
-RUN deno run  --unstable-temporal -A dev.ts build
-
-FROM denoland/deno 
-COPY --from=build /app/_fresh/ /app
-CMD ["deno","run","-A","/app/main.js"]
+RUN deno task build
+FROM  denoland/deno
+COPY --from=build /app/_fresh /app
+CMD deno run  -A  /app/main.js
