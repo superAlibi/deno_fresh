@@ -16,5 +16,8 @@
   },
   "css.customData": [
     ".vscode/tailwind.json"
-  ]
+  ],
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  }
 }
