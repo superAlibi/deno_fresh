@@ -1,18 +1,15 @@
 import { defineRoute, Handlers } from "$fresh/server.ts";
 import STDTable, { Column } from "../../../components/stdtable.tsx";
 
-import { UserInfo } from "../../../denokv/user.ts";
-import { GetUserList } from "../../../denokv/user.ts";
 
-export const handler: Handlers<any, Array<UserInfo> | null> = {
+export const handler: Handlers= {
   async GET(req, ctx) {
-    const list = await GetUserList();
-    ctx.state = list;
+
     return ctx.render();
   },
 };
-export default defineRoute<Array<UserInfo>>((req, ctx) => {
-  const colConfig: Column<UserInfo>[] = [
+export default defineRoute((req, ctx) => {
+  const colConfig: Column<any>[] = [
     {
       title: "账号",
       key: "account",
@@ -42,7 +39,7 @@ export default defineRoute<Array<UserInfo>>((req, ctx) => {
   return (
     <div>
       <h3>用户管理部分</h3>
-      <STDTable data={ctx.state} columns={colConfig}></STDTable>
+      <STDTable data={[]} columns={colConfig}></STDTable>
     </div>
   );
 });

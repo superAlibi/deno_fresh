@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import { ParsedReqInfo } from "../_middleware.ts";
+import { ParsedCTX } from "../../../types.d.ts";
 import { encode, Hash } from "https://deno.land/x/checksum@1.2.0/mod.ts";
 type Query = {
   signature: string;
@@ -8,7 +8,7 @@ type Query = {
   echostr: string;
 };
 
-export const handler: Handlers<ParsedReqInfo> = {
+export const handler: Handlers<ParsedCTX> = {
   GET(req, ctx) {
     const token='Gw8ShC0Sizvy5ivTdQSALw'
     const { signature, timestamp, nonce, echostr } = Object.fromEntries(
