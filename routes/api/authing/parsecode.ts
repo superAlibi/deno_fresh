@@ -1,10 +1,9 @@
 import { Handlers } from "$fresh/server.ts";
-import { resumeAuhtingSDK } from "../../../tools/sdk/authing.ts";
+import { getResumeAuthingSDK } from "../../../tools/sdk/authing.ts";
 import { ParsedCTX } from "../../../types.d.ts";
 
 export const handler: Handlers<ParsedCTX> = {
   GET(req, ctx) {
-    // resumeAuhtingSDK.getA
     const code = ctx.data.query.get("code");
     if (!code) {
       return new Response(JSON.stringify({
@@ -14,7 +13,7 @@ export const handler: Handlers<ParsedCTX> = {
     }
     const state = ctx.data.query.get("state");
     // 认证参数拼装
-    const result = resumeAuhtingSDK.getAccessTokenByCode(code);
+    const result = getResumeAuthingSDK().getAccessTokenByCode(code);
     console.log(result);
     return new Response(JSON.stringify(ctx.data.query.toString()));
   },
