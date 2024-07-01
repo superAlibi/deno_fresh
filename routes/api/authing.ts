@@ -1,8 +1,8 @@
 import { Handlers } from "$fresh/server.ts";
+import { ParsedCTX } from "../../types.d.ts";
 // import { resumeAuhtingSDK } from "../../tools/sdk/authing.ts";
-import { ParsedReqInfo } from "./_middleware.ts";
 
-export const handler: Handlers<ParsedReqInfo> = {
+export const handler: Handlers<ParsedCTX> = {
   GET(req, ctx) {
     // resumeAuhtingSDK.getA
     const code=ctx.data.query.get('code')
@@ -19,6 +19,9 @@ export const handler: Handlers<ParsedReqInfo> = {
     searchParams.append('client_id',Deno.env.get('AUTHING_APP_ID')!)
     searchParams.append('client_secret',Deno.env.get('AUTHING_SECRET_KEY')!)
     searchParams.append('grant_type','authorization_code')
+    searchParams.append('grant_type','authorization_code')
+    console.log(urlObj.toString());
+    
     fetch(urlObj,{
       headers:{
         'Content-Type':'application/x-www-form-urlencoded'

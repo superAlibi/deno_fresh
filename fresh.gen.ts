@@ -24,6 +24,7 @@ import * as $admin_user_list from "./routes/admin/user/list.tsx";
 import * as $alipay from "./routes/alipay.tsx";
 import * as $api_middleware from "./routes/api/_middleware.ts";
 import * as $api_authing from "./routes/api/authing.ts";
+import * as $api_authing_parsecode from "./routes/api/authing/parsecode.ts";
 import * as $api_common_index from "./routes/api/common/index.ts";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_resume from "./routes/api/resume.ts";
@@ -78,6 +79,7 @@ const manifest = {
     "./routes/alipay.tsx": $alipay,
     "./routes/api/_middleware.ts": $api_middleware,
     "./routes/api/authing.ts": $api_authing,
+    "./routes/api/authing/parsecode.ts": $api_authing_parsecode,
     "./routes/api/common/index.ts": $api_common_index,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/resume.ts": $api_resume,

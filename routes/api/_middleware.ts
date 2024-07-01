@@ -2,14 +2,8 @@ import { FreshContext } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
 import { decodeBase64 } from "$std/encoding/base64.ts";
 import { CurrentAES } from "../../tools/crypto/server.ts";
-export interface STDReq {
-  data: string;
-  iv: string;
-}
-export interface ParsedReqInfo<T = unknown> {
-  reqbody: T;
-  query: URLSearchParams;
-}
+import { ParsedCTX } from "../../types.d.ts";
+
 // 接口白名单列表
 const whiteList = [
   "/api/common",
@@ -22,7 +16,8 @@ const whiteList = [
   "/api/whitelist/wx",
   "/api/alipay/auth_code",
   "/api/alipay/notify",
-  "/api/authing",
+  "/api/authing/parsecode",
+  "/api/authing/access_token",
 ];
 // 加密排除名单列表
 const encryptExcludeList: string[] = [];
@@ -30,7 +25,7 @@ const nobodymethods = ["GET", "HEAD"];
 const decoder = new TextDecoder()
 export async function handler(
   req: Request,
-  ctx: FreshContext<ParsedReqInfo>,
+  ctx: FreshContext<ParsedCTX>,
 ) {
   const urlObj = new URL(req.url);
   if (nobodymethods.some((i) => req.method === i)) {
@@ -64,7 +59,7 @@ export async function handler(
     return resp;
   }
 
-  const { data, iv } = ctx.data.reqbody as STDReq;
+  const { data, iv } = ctx.data.reqbody;
   
   return CurrentAES.decrypt(decodeBase64(data), decodeBase64(iv))
     .then((plaintext) => {

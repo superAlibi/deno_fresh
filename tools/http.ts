@@ -262,7 +262,6 @@ export const createRequestInterceptor = (
 
 export const createResponseInterceptor = (
   aes: AESCBC,
-  whitelist: string[] = Whitelist,
 ) => {
   const responseInterceptor = async (resp: Response) => {
     const json = await resp.json();
@@ -275,8 +274,8 @@ export const createResponseInterceptor = (
         const plaintext = await aes.decrypt(bin, ivBin);
         return JSON.parse(textDecoder.decode(plaintext));
       } catch (e) {
-        console.error("意外:无法解码数据:",e.message);
-        console.warn('无法解密数据:将返回原json')
+        console.error("意外:无法解码数据:", e.message);
+        console.warn("无法解密数据:将返回原json");
         return json;
       }
     } else {
