@@ -12,8 +12,12 @@ deno task start
 
 ## envariables
 
-- ALIPAY_APPID: 阿里巴巴的appid
 - location: 阿里巴巴的重定向地址
 - DBID: 本地连接远程denokv数据库的数据id
-- ALIPAY_PUBLIC_KEY: 支付宝的公钥
-- APP_PRIVATE_KEY: 应用私钥
+- PGHOST postgresql数据库地址
+- PGORT postgresql数据库端口
+- PGUSER postgresql数据库用户名
+- PGPASSWORD  postgresql数据库用户密码
+- PGDATABASE postgresql数据库名
+- AUTHING_SECRET_KEY authing密钥
+- AUTHING_APP_ID authing应用id
