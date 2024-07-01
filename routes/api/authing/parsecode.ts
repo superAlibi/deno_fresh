@@ -3,7 +3,7 @@ import { getResumeAuthingSDK } from "../../../tools/sdk/authing.ts";
 import { ParsedCTX } from "../../../types.d.ts";
 
 export const handler: Handlers<ParsedCTX> = {
-  GET(req, ctx) {
+  async GET(req, ctx) {
     const code = ctx.data.query.get("code");
     if (!code) {
       return new Response(JSON.stringify({
@@ -11,9 +11,10 @@ export const handler: Handlers<ParsedCTX> = {
         message: "code is required",
       }));
     }
+    const sdk = getResumeAuthingSDK();
     const state = ctx.data.query.get("state");
     // 认证参数拼装
-    const result = getResumeAuthingSDK().getAccessTokenByCode(code);
+    const result = await sdk.getAccessTokenByCode(code);
     console.log(result);
     return new Response(JSON.stringify(ctx.data.query.toString()));
   },
