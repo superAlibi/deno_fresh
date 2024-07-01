@@ -14,6 +14,7 @@ Deno.test("test authing cloud", async (t) => {
         Deno.env.get("AUTHING_password")!,
       );
       console.log(result);
+     await resumeAuhtingSDK.logout();
     });
   });
 });

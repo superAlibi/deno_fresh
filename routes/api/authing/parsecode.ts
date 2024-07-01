@@ -14,7 +14,7 @@ export const handler: Handlers<ParsedCTX> = {
     }
     const state = ctx.data.query.get("state");
     // 认证参数拼装
-    const urlObj = new URL("https://worker-xjm-resume.authing.cn/oauth/token");
+    const urlObj = new URL("https://worker-xjm-resume.authing.cn/oidc/token");
     const { searchParams } = urlObj;
     searchParams.append("code", code);
     searchParams.append("client_id", Deno.env.get("AUTHING_APP_ID")!);
