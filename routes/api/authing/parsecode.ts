@@ -19,11 +19,11 @@ export const handler: Handlers<ParsedCTX> = {
     searchParams.append("code", code);
     searchParams.append("client_id", Deno.env.get("AUTHING_APP_ID")!);
     searchParams.append("client_secret", Deno.env.get("AUTHING_SECRET_KEY")!);
-    searchParams.append("grant_type", "authorization_code");
+    // searchParams.append("grant_type", "authorization_code");
     // 重定向地址
-    const redirect_uri = new URL(Deno.env.get("location")!);
-    redirect_uri.pathname = "/api/authing/parsecode";
-    searchParams.append("redirect_uri", redirect_uri.toString());
+    // const redirect_uri = new URL(Deno.env.get("location")!);
+    // redirect_uri.pathname = "/api/authing/parsecode";
+    // searchParams.append("redirect_uri", redirect_uri.toString());
     console.log(urlObj.toString());
 
     fetch(urlObj, {
