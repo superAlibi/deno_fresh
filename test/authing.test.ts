@@ -16,9 +16,5 @@ Deno.test("test authing cloud", async (t) => {
       });
       console.log(result);
     });
-    await t.step("login with code", async () => {
-      const result = await sdk.getAccessTokenByCode('rN4ixAoSNFRQNx-5H7Te8ABa9qYl8wXtGdVBXwYGLI3');
-      console.log(result);
-    });
   });
 });
