@@ -14,16 +14,16 @@ export const handler: Handlers<ParsedCTX> = {
     }
     const state = ctx.data.query.get("state");
     // 认证参数拼装
-    const urlObj = new URL("https://worker-xjm-resume.authing.cn/oidc/token");
+    const urlObj = new URL("https://worker-xjm-resume.authing.cn/oauth/token");
     const { searchParams } = urlObj;
     searchParams.append("code", code);
     searchParams.append("client_id", Deno.env.get("AUTHING_APP_ID")!);
     searchParams.append("client_secret", Deno.env.get("AUTHING_SECRET_KEY")!);
-    // searchParams.append("grant_type", "authorization_code");
+    searchParams.append("grant_type", "authorization_code");
     // 重定向地址
-    // const redirect_uri = new URL(Deno.env.get("location")!);
-    // redirect_uri.pathname = "/api/authing/parsecode";
-    // searchParams.append("redirect_uri", redirect_uri.toString());
+    const redirect_uri = new URL(Deno.env.get("location")!);
+    redirect_uri.pathname = "/api/authing/parsecode";
+    searchParams.append("redirect_uri", redirect_uri.toString());
     console.log(urlObj.toString());
 
     fetch(urlObj, {
