@@ -36,7 +36,7 @@
     "@tailwindcss/forms": "npm:@tailwindcss/forms@0.5.7",
     "mysql2/promise": "npm:mysql2@3.9.8/promise",
     "postgre": "https://deno.land/x/postgres@v0.17.0/mod.ts",
-    "authing": "npm:authing-js-sdk@latest"
+    "authing": "npm:authing-node-sdk@latest"
   },
   "test": {
     "include": ["./test/**/*.test.ts"]
