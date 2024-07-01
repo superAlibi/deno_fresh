@@ -17,7 +17,7 @@ export const handler: Handlers<ParsedReqInfo> = {
     const {searchParams}=urlObj
     searchParams.append('code',code)
     searchParams.append('client_id',Deno.env.get('AUTHING_APP_ID')!)
-    searchParams.append('client_secret',Deno.env.get('AUTHING_SECRET')!)
+    searchParams.append('client_secret',Deno.env.get('AUTHING_SECRET_KEY')!)
     searchParams.append('grant_type','authorization_code')
     fetch(urlObj,{
       headers:{
