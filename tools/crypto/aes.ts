@@ -1,5 +1,3 @@
-
-
 export class AESCBC {
   #key?: ArrayBuffer | Uint8Array;
   #cryptoKey?: CryptoKey;
@@ -63,4 +61,3 @@ export class AESCBC {
     );
   }
 }
-

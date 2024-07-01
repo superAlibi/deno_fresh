@@ -1,10 +1,8 @@
 import { defineRoute, Handlers } from "$fresh/server.ts";
 import STDTable, { Column } from "../../../components/stdtable.tsx";
 
-
-export const handler: Handlers= {
+export const handler: Handlers = {
   async GET(req, ctx) {
-
     return ctx.render();
   },
 };
@@ -13,7 +11,7 @@ export default defineRoute((req, ctx) => {
     {
       title: "账号",
       key: "account",
-      type:'selection'
+      type: "selection",
     },
     {
       title: "账号",

@@ -39,7 +39,9 @@
     "authing": "npm:authing-node-sdk@latest"
   },
   "test": {
-    "include": ["./test/**/*.test.ts"]
+    "include": [
+      "./test/**/*.test.ts"
+    ]
   },
   "compilerOptions": {
     "jsx": "react-jsx",

@@ -10,11 +10,11 @@ type Query = {
 
 export const handler: Handlers<ParsedCTX> = {
   GET(req, ctx) {
-    const token='Gw8ShC0Sizvy5ivTdQSALw'
+    const token = "Gw8ShC0Sizvy5ivTdQSALw";
     const { signature, timestamp, nonce, echostr } = Object.fromEntries(
       ctx.data.query.entries(),
     ) as Query;
-    const list = [token,timestamp, nonce].sort().join("");
+    const list = [token, timestamp, nonce].sort().join("");
 
     if (new Hash("sha1").digest(encode(list)).hex() === signature) {
       return new Response(echostr);

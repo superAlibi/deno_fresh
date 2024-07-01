@@ -9,6 +9,6 @@ export const getResumeAuthingSDK = () => {
     appId: Deno.env.get("AUTHING_APP_ID")!,
     appHost: "https://worker-xjm-resume.authing.cn",
     appSecret: Deno.env.get("AUTHING_SECRET_KEY")!,
-    redirectUri: Deno.env.get("location") + '/api/authing/parsecode',
+    redirectUri: Deno.env.get("location") + "/api/authing/parsecode",
   });
 };

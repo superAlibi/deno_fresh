@@ -1,11 +1,10 @@
-import { Handlers, defineLayout } from "$fresh/server.ts";
+import { defineLayout, Handlers } from "$fresh/server.ts";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 import { useInit } from "../../tools/hooks.ts";
 import Aside from "../../components/aside.tsx";
 
 export default defineLayout((_, { Component }) => {
   if (IS_BROWSER) {
-
     useInit();
   }
   return (

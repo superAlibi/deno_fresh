@@ -23,7 +23,9 @@ export function Select(
   });
   return (
     <label class="block">
-      <span class="block text-sm font-medium text-slate-700">{label}</span>
+      <span class="block text-sm font-medium text-slate-700">
+        {label}
+      </span>
       <select
         {...ops}
         class="rounded-md mt-1 py-2 border

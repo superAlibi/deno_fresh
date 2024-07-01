@@ -1,7 +1,7 @@
 Deno.test("template string ", async (t) => {
   const tag = (strings: any, ...keys: any[]) => {
     console.log(strings, keys);
-    return  (...values:any[]) => {
+    return (...values: any[]) => {
       const dict = values[values.length - 1] || {};
       const result = [strings[0]];
       keys.forEach((key, i) => {

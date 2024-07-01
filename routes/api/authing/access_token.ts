@@ -10,7 +10,7 @@ export const handler: Handlers<ParsedCTX> = {
         message: "code is required",
       }));
     }
-   
+
     return new Response(JSON.stringify(ctx.data.query.toString()));
   },
   POST(req, ctx) {

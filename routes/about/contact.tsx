@@ -28,7 +28,6 @@ export const handler: Handlers<Data> = {
   },
 };
 export default function ({ data }: PageProps<Data>) {
-  
   const { result, query } = data;
   return (
     <main class="flex justify-center">
@@ -41,7 +40,12 @@ export default function ({ data }: PageProps<Data>) {
           value={query}
         />
 
-        <button class="hover:rounded-sm hover:bg-slate-400 px-2" type="submit">搜索</button>
+        <button
+          class="hover:rounded-sm hover:bg-slate-400 px-2"
+          type="submit"
+        >
+          搜索
+        </button>
         <input
           class="hover:cursor-pointer hover:rounded-sm hover:bg-slate-400 px-2"
           formMethod="post"

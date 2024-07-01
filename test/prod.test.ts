@@ -14,4 +14,4 @@ const kvServer = await Deno.openKv(
 if (ok) {
   console.log("写入成功");
 } */
-kvServer.close()
+kvServer.close();

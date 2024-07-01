@@ -9,7 +9,9 @@ export interface InputProp
 export function Input({ label, errormsg, ...ops }: InputProp) {
   return (
     <label class="block">
-      <span class="block text-sm font-medium text-slate-700">{label}</span>
+      <span class="block text-sm font-medium text-slate-700">
+        {label}
+      </span>
       <input
         {...ops}
         class="peer mt-1 block w-full px-3 py-2 bg-white border

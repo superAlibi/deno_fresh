@@ -7,12 +7,10 @@ Deno.addSignalListener("SIGABRT", () => {
   console.log("链接已停止");
 });
 export function setRefreshToken(refreshToken: string) {
-  
   return kvServer.set(["refreshToken"], refreshToken);
 }
 /**
- * 
- * @returns 
+ * @returns
  */
 export async function getFreshToekn() {
   return await kvServer.get(["refreshToken"]).then((v) => v.value as string);

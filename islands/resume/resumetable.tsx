@@ -23,7 +23,9 @@ export default ({ data, action }: ResumeTableProps) => {
     }
     choosedSet.value = nv;
   }
-  function handleCheckall(e: JSX.TargetedEvent<HTMLInputElement, InputEvent>) {
+  function handleCheckall(
+    e: JSX.TargetedEvent<HTMLInputElement, InputEvent>,
+  ) {
     const nv = new Set(choosedSet.value);
     if (e.currentTarget.checked) {
       data.forEach((i) => {
@@ -36,7 +38,7 @@ export default ({ data, action }: ResumeTableProps) => {
   }
   function handleCopy(params: number) {
     const newUrl = new URL(location.href);
-    newUrl.pathname='/resume'
+    newUrl.pathname = "/resume";
     newUrl.searchParams.set("credential", params.toString());
     const type = "text/plain";
     const blob = new Blob([newUrl.toString()], { type });
@@ -47,13 +49,15 @@ export default ({ data, action }: ResumeTableProps) => {
   }
   // const isOpen = useSignal(false);
   return (
-    <form  method="post" action={action}>
-      {/* <Edit
+    <form method="post" action={action}>
+      {
+        /* <Edit
         onClose={() => {
           isOpen.value = false;
         }}
         open={isOpen.value}
-      /> */}
+      /> */
+      }
       <div>
         <button
           disabled={!choosedSet.value.size}
@@ -61,7 +65,8 @@ export default ({ data, action }: ResumeTableProps) => {
         >
           删除
         </button>
-        {/* <button
+        {
+          /* <button
           type="button"
           onClick={() => {
             console.log("not msg");
@@ -69,7 +74,8 @@ export default ({ data, action }: ResumeTableProps) => {
           }}
         >
           确定无法{isOpen.value}
-        </button> */}
+        </button> */
+        }
         <a
           type="button"
           href="/admin/resume/edit"
@@ -123,11 +129,21 @@ export default ({ data, action }: ResumeTableProps) => {
                     value={item.id}
                   />
                 </td>
-                <td class="border border-slate-700">{item.createAt}</td>
-                <td class="border border-slate-700">{item.corporateName}</td>
-                <td class="border border-slate-700">{item.duration}</td>
-                <td class="border border-slate-700">{item.durationUnit}</td>
-                <td class="border border-slate-700">{item.drives.length}</td>
+                <td class="border border-slate-700">
+                  {item.createAt}
+                </td>
+                <td class="border border-slate-700">
+                  {item.corporateName}
+                </td>
+                <td class="border border-slate-700">
+                  {item.duration}
+                </td>
+                <td class="border border-slate-700">
+                  {item.durationUnit}
+                </td>
+                <td class="border border-slate-700">
+                  {item.drives.length}
+                </td>
                 <td class="border border-slate-700">
                   <a
                     class="hover:cursor-pointer text-blue-600"

@@ -22,7 +22,7 @@ const whiteList = [
 // 加密排除名单列表
 const encryptExcludeList: string[] = [];
 const nobodymethods = ["GET", "HEAD"];
-const decoder = new TextDecoder()
+const decoder = new TextDecoder();
 export async function handler(
   req: Request,
   ctx: FreshContext<ParsedCTX>,
@@ -60,7 +60,7 @@ export async function handler(
   }
 
   const { data, iv } = ctx.data.reqbody;
-  
+
   return CurrentAES.decrypt(decodeBase64(data), decodeBase64(iv))
     .then((plaintext) => {
       const info = decoder.decode(plaintext);

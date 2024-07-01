@@ -67,7 +67,12 @@ export default ({ data, url }: PageProps<Partial<UpdateCredentialParam>>) => {
         name="duration"
         value={data?.duration || 1}
       />
-      <Select required value={data?.durationUnit} label="时长单位" options={options} />
+      <Select
+        required
+        value={data?.durationUnit}
+        label="时长单位"
+        options={options}
+      />
       <Button className=" peer-invalid:disabled w-72" formmethod="post">
         提交
       </Button>

@@ -10,7 +10,7 @@ export const handler: Handlers = {
   },
 };
 export default function (
-  { data }: PageProps<{ credits: CredentialMeta[];  }>,
+  { data }: PageProps<{ credits: CredentialMeta[] }>,
 ) {
   const count = useComputed(() => data.credits.length);
   return (

@@ -46,7 +46,11 @@ export function STDTable<T extends Record<string, any>>(
                     return null;
                   }
                 } else {
-                  return <td>{column.key?row[column.key]:null}</td>;
+                  return (
+                    <td>
+                      {column.key ? row[column.key] : null}
+                    </td>
+                  );
                 }
               })}
             </tr>

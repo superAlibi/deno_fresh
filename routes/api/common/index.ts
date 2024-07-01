@@ -21,9 +21,12 @@ export const handler: Handlers<ParsedReqInfo> = {
     // 将publickey解析
     const parsedPublickKey = decodeBase64(pk);
     if (!parsedPublickKey) {
-      return new Response(JSON.stringify({ message: "Invalid public key" }), {
-        status: 400,
-      });
+      return new Response(
+        JSON.stringify({ message: "Invalid public key" }),
+        {
+          status: 400,
+        },
+      );
     }
     // 解析public key
     return RSAOAEP.parsePublicKey(parsedPublickKey)
@@ -33,7 +36,9 @@ export const handler: Handlers<ParsedReqInfo> = {
         return RSAOAEP.encrypt(key, serverKey);
       }).then((ciphertext) => {
         // 将通过publickey加密过得aeskey返回给客户端
-        return new Response(JSON.stringify({ data: encodeBase64(ciphertext) }));
+        return new Response(
+          JSON.stringify({ data: encodeBase64(ciphertext) }),
+        );
       }).catch((e) => {
         console.error(e);
         return new Response(
@@ -44,7 +49,7 @@ export const handler: Handlers<ParsedReqInfo> = {
         );
       });
   },
-   POST(req, ctx) {
+  POST(req, ctx) {
     console.log("黄河收到:", req.method);
 
     const { data, iv } = ctx.data.reqbody as STDReq;
@@ -64,7 +69,10 @@ export const handler: Handlers<ParsedReqInfo> = {
         .then((d) => {
           const data = decoder.decode(d);
           const parsedData = JSON.parse(data);
-          const responsedata = JSON.stringify({ ...parsedData, message: "ok" });
+          const responsedata = JSON.stringify({
+            ...parsedData,
+            message: "ok",
+          });
           const iv = crypto.getRandomValues(new Uint8Array(16));
           return CurrentAES.encrypt(encoder.encode(responsedata), iv)
             .then((ciphertext) => {
@@ -76,9 +84,12 @@ export const handler: Handlers<ParsedReqInfo> = {
         });
     } catch (e) {
       console.error(e);
-      return new Response(JSON.stringify({ message: "Invalid ciphertext" }), {
-        status: 400,
-      });
+      return new Response(
+        JSON.stringify({ message: "Invalid ciphertext" }),
+        {
+          status: 400,
+        },
+      );
     }
   },
   OPTIONS(req, ctx) {
@@ -99,13 +110,18 @@ export const handler: Handlers<ParsedReqInfo> = {
         .then((d) => {
           const data = decoder.decode(d);
           const parsedData = JSON.parse(data);
-          return new Response(JSON.stringify({ ...parsedData, message: "ok" }));
+          return new Response(
+            JSON.stringify({ ...parsedData, message: "ok" }),
+          );
         });
     } catch (e) {
       console.error(e);
-      return new Response(JSON.stringify({ message: "Invalid ciphertext" }), {
-        status: 500,
-      });
+      return new Response(
+        JSON.stringify({ message: "Invalid ciphertext" }),
+        {
+          status: 500,
+        },
+      );
     }
   },
 };

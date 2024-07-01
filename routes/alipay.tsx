@@ -6,13 +6,13 @@ export const handler: Handlers = {
     const privateKey = Deno.env.get("APP_PRIVATE_KEY");
     const publickey = Deno.env.get("ALIPAY_PUBLIC_KEY");
     console.log(privateKey);
-    console.log('卧槽');
-    
+    console.log("卧槽");
+
     console.log(publickey);
-    
+
     const location = Deno.env.get("location")!;
     console.log(location);
-    
+
     const urlobj = new URL(location);
     urlobj.pathname = "/api/alipay/auth_code";
     const authURLObj = new URL(
@@ -26,7 +26,7 @@ export const handler: Handlers = {
     );
     authURLObj.searchParams.set("state", "admin");
     console.log(authURLObj.toString());
-    
+
     return new Response("", {
       status: 302,
       headers: {

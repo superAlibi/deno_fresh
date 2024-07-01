@@ -61,7 +61,10 @@ class SyncEventDispatcher {
         try {
           listener(event.data.clone() as Request & Response); // 执行事件处理函数，可传入参数
         } catch (error) {
-          console.error(`Error handling '${event.type}' event:`, error);
+          console.error(
+            `Error handling '${event.type}' event:`,
+            error,
+          );
         }
       }
     }
@@ -132,7 +135,10 @@ export class HTTPTool extends SyncEventDispatcher {
         url,
         ...options,
       });
-      const urlObj = new URL(this.getFormatedURL(originalURL), location.href);
+      const urlObj = new URL(
+        this.getFormatedURL(originalURL),
+        location.href,
+      );
       if (params) {
         if (params instanceof URLSearchParams) {
           urlObj.search = params.toString();
@@ -151,7 +157,10 @@ export class HTTPTool extends SyncEventDispatcher {
         try {
           body = JSON.stringify(data);
         } catch (e) {
-          console.error("JSONization failure of data parameter:", e?.message);
+          console.error(
+            "JSONization failure of data parameter:",
+            e?.message,
+          );
           return Promise.reject(e);
         }
       }
@@ -201,7 +210,10 @@ export class HTTPTool extends SyncEventDispatcher {
       method: "POST",
     });
   }
-  option<T = unknown>(url: string, options: Omit<HTTPToolOptions, "url"> = {}) {
+  option<T = unknown>(
+    url: string,
+    options: Omit<HTTPToolOptions, "url"> = {},
+  ) {
     return this.request<T>(url, {
       ...this.options,
       ...options,

@@ -1,7 +1,7 @@
 import { decodeBase64, encodeBase64 } from "$std/encoding/base64.ts";
 
 import { Button } from "../components/Button.tsx";
-import { computed,  signal } from "@preact/signals";
+import { computed, signal } from "@preact/signals";
 import { useRef } from "preact/hooks";
 
 import {
@@ -34,55 +34,63 @@ export const GenKeyAndGetAes = () => {
   const b64AESKey = computed(() =>
     aeskey.value ? encodeBase64(aeskey.value) : ""
   );
- 
+
   function getKey() {
-    commonServer.get<RespType>("common", { params: { pk: publickey.value } })
+    commonServer.get<RespType>("common", {
+      params: { pk: publickey.value },
+    })
       .then((resp) => {
         const ciphertext = decodeBase64(resp.data);
         rsa.current.decrypt(ciphertext).then((v) => {
           aeskey.value = new Uint8Array(v);
           const aes = new AESCBC(v);
-          http.options.requestInterceptor = createRequestInterceptor(aes);
+          http.options.requestInterceptor = createRequestInterceptor(
+            aes,
+          );
           http.options.responseInterceptor = createResponseInterceptor(aes);
         });
       });
   }
   const textarearef = useRef<HTMLTextAreaElement>(null);
 
-
   const outputValue = useRef<HTMLTextAreaElement>(null);
   function optionSend() {
     console.log("长江发送");
     http.option("/common", {
-      data:{data: textarearef.current!.value},
+      data: { data: textarearef.current!.value },
     }).then((resp) => {
       outputValue.current!.value = JSON.stringify(resp);
       return resp as RespType;
     }).then((resp) => {
-      console.log(resp); 
-    }).catch(e=>{
+      console.log(resp);
+    }).catch((e) => {
       console.trace(e);
-    })
+    });
   }
   function postSend() {
     console.log("长江发送");
     http.post("/common", {
-      data:{data: textarearef.current!.value},
+      data: { data: textarearef.current!.value },
     }).then((resp) => {
       outputValue.current!.value = JSON.stringify(resp);
       return resp as RespType;
     }).then((resp) => {
-      console.log(resp); 
-    }).catch(e=>{
+      console.log(resp);
+    }).catch((e) => {
       console.trace(e);
-    })
+    });
   }
   return (
     <div>
       <div>
         <label htmlFor="publickey">
           公钥
-          <textarea class="w-full" rows={3} disabled={true} id="publickey">
+          <textarea
+            class="w-full"
+            rows={3}
+            disabled={true}
+            id="publickey"
+          >
             {publickey}
           </textarea>
         </label>
@@ -103,7 +111,11 @@ export const GenKeyAndGetAes = () => {
         <div>
           <label htmlFor="inputValue">
             需要加密的信息
-            <textarea class="w-full" id="inputValue" ref={textarearef}>
+            <textarea
+              class="w-full"
+              id="inputValue"
+              ref={textarearef}
+            >
             </textarea>
           </label>
         </div>
@@ -119,8 +131,12 @@ export const GenKeyAndGetAes = () => {
             </textarea>
           </label>
         </div>
-        <Button title="返回的数据将不会加密" onClick={optionSend}>发送加密数据(OPTION)</Button>
-        <Button title="返回的数据将会加密" onClick={postSend}>发送加密数据(POST)</Button>
+        <Button title="返回的数据将不会加密" onClick={optionSend}>
+          发送加密数据(OPTION)
+        </Button>
+        <Button title="返回的数据将会加密" onClick={postSend}>
+          发送加密数据(POST)
+        </Button>
       </div>
     </div>
   );

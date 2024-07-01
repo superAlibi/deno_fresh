@@ -17,7 +17,7 @@ deno task start
 - PGHOST postgresql数据库地址
 - PGORT postgresql数据库端口
 - PGUSER postgresql数据库用户名
-- PGPASSWORD  postgresql数据库用户密码
+- PGPASSWORD postgresql数据库用户密码
 - PGDATABASE postgresql数据库名
 - AUTHING_SECRET_KEY authing密钥
 - AUTHING_APP_ID authing应用id

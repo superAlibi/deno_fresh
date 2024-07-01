@@ -52,7 +52,9 @@ export async function GetCreditList() {
   return list;
 }
 type PKS = "id" | "createAt";
-export type UpdateCredentialParam= Omit<CredentialMeta, PKS> & Partial<Pick<CredentialMeta, PKS>>
+export type UpdateCredentialParam =
+  & Omit<CredentialMeta, PKS>
+  & Partial<Pick<CredentialMeta, PKS>>;
 /**
  * 添加一个分享信息
  * @param params
@@ -63,7 +65,7 @@ export function UpdateCredential(
   params: UpdateCredentialParam,
 ) {
   if (!params.id) {
-    params.id =  Date.now();
+    params.id = Date.now();
   }
   if (!params.createAt) {
     params.createAt = new Date().toISOString();
