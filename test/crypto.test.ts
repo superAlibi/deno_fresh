@@ -1,7 +1,7 @@
 import { AESCBC } from "../tools/crypto/aes.ts";
 import { HMAC } from "../tools/crypto/hmac.ts";
-import { RSAOAEP, RSAPSS } from "../tools/crypto/rsa.ts";
-import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
+import { RSAOAEP, RSAPSS, RSASSA_PKCS_1v1$5 } from "../tools/crypto/rsa.ts";
+import { assertEquals } from "$std/assert/mod.ts";
 const encoder = new TextEncoder(), decoder = new TextDecoder();
 Deno.test("crypto", async (t) => {
   await t.step("AES", async (t) => {
@@ -92,6 +92,38 @@ Deno.test("crypto", async (t) => {
       assertEquals(
         await HMAC.verify(key, sign, encoder.encode("hello world")),
         true,
+      );
+    });
+  });
+  await t.step("rs256", async (t) => {
+    const rsa = new RSASSA_PKCS_1v1$5();
+    await t.step("GenerateKey", async () => {
+      await RSASSA_PKCS_1v1$5.GenerateKey();
+    });
+    await t.step("parseKey", async () => {
+      const publicKey = await rsa.exportPublicKey();
+      await RSASSA_PKCS_1v1$5.parsePublickKey(publicKey);
+    });
+    await t.step("exportKey", async () => {
+      await rsa.exportPublicKey();
+    });
+    await t.step("generate key sign", async () => {
+      const plaintext = encoder.encode("hello world");
+      await rsa.sign(plaintext);
+    });
+    await t.step("generate key verify", async () => {
+      const plaintext = encoder.encode("hello world");
+      const sign = await rsa.sign(plaintext);
+      assertEquals(await rsa.verify(sign, plaintext), true);
+    });
+    await t.step("parse public key verify", async () => {
+      const plaintext = encoder.encode("hello world");
+      const sign = await rsa.sign(plaintext);
+      const publicKey = await rsa.exportPublicKey();
+      RSASSA_PKCS_1v1$5.verify(
+        await RSASSA_PKCS_1v1$5.parsePublickKey(publicKey),
+        sign,
+        plaintext,
       );
     });
   });

@@ -12,7 +12,7 @@ deno task start
 
 ## envariables
 
-- location: 阿里巴巴的重定向地址
+- location: 当前服务器运行的网址
 - DBID: 本地连接远程denokv数据库的数据id
 - PGHOST postgresql数据库地址
 - PGORT postgresql数据库端口

@@ -1,3 +1,7 @@
+/**
+ * hmac hash-256 算法
+ * HS256
+ */
 export class HMAC {
   #cryptoKey?: CryptoKey;
   #key?: ArrayBuffer;

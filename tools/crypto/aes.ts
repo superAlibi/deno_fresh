@@ -1,3 +1,6 @@
+/**
+ * aes cbc hash-128
+ */
 export class AESCBC {
   #key?: ArrayBuffer | Uint8Array;
   #cryptoKey?: CryptoKey;
