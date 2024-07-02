@@ -12,7 +12,7 @@ export interface STDTableProps<T> {
   data: T[];
 }
 
-export function STDTable<T extends Record<string, any>>(
+export function STDTable<T extends Record<string, unknown>>(
   { columns, data }: STDTableProps<T>,
 ) {
   const labels = columns.map((column) => column.title);
@@ -48,7 +48,7 @@ export function STDTable<T extends Record<string, any>>(
                 } else {
                   return (
                     <td>
-                      {column.key ? row[column.key] : null}
+                      {row[column.key ?? ""] ?? ""}
                     </td>
                   );
                 }
